@@ -1,0 +1,64 @@
+---
+title: "Seriation"
+---
+
+Load the data and summarize row and column sums. Also create burial with only the counts using Ripley type-varieties as rownames. Finally create burial_pct with percentages.
+
+```{r load}
+library(dplyr)
+library(ca)
+library(plotrix)
+library(kableExtra)
+
+# read data
+data <- read.csv("seriate.allen.phase.csv")
+
+# Row sums
+(RS <- rowSums(data[, -(1)]))
+
+# Column sums
+CS <- colSums(data[, -(1)])
+as.matrix(CS)
+burial_ct <- data[, -(1)]
+labels <- paste0(data$Burial)
+rownames(burial_ct) <- labels
+burial_pct <- burial_ct / RS  * 100
+```
+
+Use the first dimension of a correspondence analysis on burial_ct to provide an initial ordering of the data (ca_ord).
+
+```{r ca, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
+burial_ca <- ca(burial_ct)
+# Correspondence Analysis Ordering on Dimension 1
+(ca_ord <- order(burial_ca$rowcoord[, 1]))
+```
+
+Use the first projection of a detrended correspondence analysis on burial_ct to provide an alternate ordering of the data (dec_ord). Use correlation to compare the two sequences. Detach packages that contain functions that interfere with the seriation package.
+
+```{r decorana, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
+library(vegan)
+burial_dec <- decorana(burial_ct)
+# Decorana Ordering on Projection 1
+(dec_ord <- order(burial_dec$rproj[, 1]))
+(cor.test(ca_ord, dec_ord, method = "kendall"))
+detach("package:vegan")
+detach("package:permute")
+```
+
+The battleship plots illustrate ARSA orderings. 
+
+```{r seriation, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message = FALSE}
+library(seriation)
+burial_dist <- dist(burial_pct, method = "manhattan")
+
+# Distance matrix:
+round(burial_dist, 1)
+set.seed(42)
+burial_ser1 <- seriate(burial_dist, method = "ARSA")
+ord1 <- get_order(burial_ser1)
+
+## plot of ARSA 
+battleship.plot(burial_pct[ord1, ], 
+                col = "skyblue4", 
+                cex.labels = .75)
+```

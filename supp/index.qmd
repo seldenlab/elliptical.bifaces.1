@@ -11,6 +11,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 link-citations: yes
 github-repo: seldenlab/elliptical.bifaces.1
 description: Supplementary Materials
+license: "CC BY-NC"
 ---
 
 >This process of comparison, of recognising in one form a definite permutation or _deformation_ of another, apart altogether from a precise and adequate understanding of the original "type" or standard of comparison, lies within the immediate province of mathematics, and finds its solution in the elementary use of a certain method of the mathematician [@RN7522].
@@ -27,7 +28,7 @@ _Caddo; lithics; computational archaeology; archaeoinformatics; museum studies; 
 
 Elliptical bifaces comprise an understudied category of Caddo material culture. The elliptical bifaces from 41AN13 (Jowell Farm) were purchased by the Texas Archeological Research Laboratory (TARL) at The University of Texas at Austin on April 13, 1933, and the site is located near Kickapoo Springs Village, south of Frankston, Texas in Anderson County. The bifaces were excavated from a Caddo burial by a local farmer (George H. Adams), and of the 35 bifaces reportedly acquired by TARL when the collection was purchased, 18 could be located, and 13 of those are complete. Due to the dearth of locally-available raw materials of suitable size and quality needed to produce the elliptical bifaces [@RN9364, Figure 2], an assumption also made for Gahagan bifaces from the ancestral Caddo region [@RN11783;@RN21001], the elliptical bifaces are thought to have been imported through trade and/or exchange. This study asks whether raw material color may have been a determining factor impacting elliptical biface morphology.
 
-```{r figmap, fig.cap="Location of Jowell Farm and other Caddo sites where elliptical bifaces have been found, which includes all but one major drainage basin in the ancestral Caddo area (dashed/white) ."}
+```{r figmap, fig.cap="Location of Jowell Farm and other Caddo sites where elliptical bifaces have been found, which includes all but one major drainage basin in the ancestral Caddo area (dashed/white)."}
 
 knitr::include_graphics('./img/map.png')
 ```
@@ -35,6 +36,11 @@ knitr::include_graphics('./img/map.png')
 ## Seriation
 
 Temporally, 41AN13 is among the five sites—others include 41AN21, 41AN26, 41CE6, and 41CE12—that Kleinschmidt [-@RN1753, 213-220] analyzed when he built upon the work of Cole [-@RN863] to propose the Allen Phase in northeast Texas. Pulling directly from Kleinschmidt’s [-@RN1753, 220] Cemetery Data and Tentative Chronology table, a new seriation was assembled for the five Allen Phase sites listed in that table. For the purpose of the seriation, the Poynor Engraved and Patton Engraved types were each collapsed into a single column, and any row or column included in the Allen Phase section of Kleinschmidt’s [-@RN1753] table with a sum of zero was omitted.
+
+```{r figseriation, fig.cap="Seriation of Allen Phase burial contexts derived from Kleinschmidt (1982)."}
+
+knitr::include_graphics('./img/seriation.jpg')
+```
 
 ## Color
 
@@ -47,19 +53,23 @@ knitr::include_graphics('./img/color.png')
 
 ## Geometric morphometrics
 
-Prior to landmarking, elliptical bifaces from Millsap Cache and Jowell Farm were oriented with the most heavily retouched edge at top right. The landmarking protocol uses three landmarks; two horizontal tangents (top/bottom), and the third placed at the furthest extent of the retouched edge bearing the heaviest amount of retouch. Landmarks and semilandmarks were applied in R 4.2.1 [@R] using the `StereoMorph` library v. 1.6.7 [@RN8973]. Some bifaces include multiple areas of heavy retouch at the top and bottom of the same lateral edge, while others include one retouched edge at top right and another at bottom left, similar to alternately beveled bifaces.
+Prior to landmarking, elliptical bifaces from Millsap Cache and Jowell Farm were oriented with the most heavily retouched edge at top right. The landmarking protocol uses three landmarks; two horizontal tangents (top/bottom), and the third placed at the furthest extent of the retouched edge bearing the heaviest amount of retouch. Landmarks and semilandmarks were applied in R using the `StereoMorph` library [@R;@RN8973]. Some bifaces include multiple areas of heavy retouch at the top and bottom of the same lateral edge, while others include one retouched edge at top right and another at bottom left, similar to alternately beveled bifaces.
 
 To identify which edge was most heavily retouched, we employed a modified approach to the flaking index initially developed by Miller [-@RN11459]. The modified approach uses counts of flake scars from each edge in the two most heavily worked areas, paired with a measure of edge length (inclusive of curvature - this is not a linear metric). The number of flake scars was then divided by the length of the worked edge, with the heaviest worked edge identified by the greater value.
 
-### Generalised Procrustes Analysis
+### Generalized Procrustes Analysis
 
-Landmark data were aligned to a global coordinate system [@RN8477;@RN7502;@RN11622;@RN11623;@RN11563], achieved through generalised Procrustes superimposition [@RN11138;@RN478;@RN1646] in R using the `geomorph` and `RRPP` packages [@RN1655;@RN11775;@RN11530;@RN1774;@RN9565]. Procrustes superimposition translates and rotates the coordinate data to allow for comparisons among objects, while also scaling each biface using unit-centroid size---the square root of the sum of squared distances from each landmark to the specimen’s centroid [@RN11139;@RN11140;@RN11564;@RN478]. The `geomorph` package uses a partial Procrustes superimposition that projects the aligned specimens into tangent space subsequent to alignment in preparation for the use of multivariate methods that assume linear space [@RN11141;@RN11142;@RN1646;@RN11563].
+Landmark data were aligned to a global coordinate system [@RN8477;@RN7502;@RN11622;@RN11623;@RN11563], achieved through generalized Procrustes superimposition [@RN11138;@RN478;@RN1646] in R using the `geomorph` and `RRPP` packages [@RN1655;@RN11775;@RN11530;@RN1774;@RN9565]. Procrustes superimposition translates and rotates the coordinate data to allow for comparisons among objects, while also scaling each biface using unit-centroid size---the square root of the sum of squared distances from each landmark to the specimen’s centroid [@RN11139;@RN11140;@RN11564;@RN478]. The `geomorph` package uses a partial Procrustes superimposition that projects the aligned specimens into tangent space subsequent to alignment in preparation for the use of multivariate methods that assume linear space [@RN11141;@RN11142;@RN1646;@RN11563].
+
+```{r figgpa, out.width = "100%", dpi = 300, fig.cap="Mean consensus configuration (black) with Procrustes residuals (gray) superimposed by generalized Procrustes analysis (top), and boxplot of centroid size by ColorGroup (bottom)."}
+knitr::include_graphics('./img/gpa.png')
+```
 
 ### Principal Components Analysis
 
-Principal components analysis [@RN1746] was used to visualise shape variation among the elliptical bifaces, and the scatterplot represents the dispersion of shapes in tangent space [@RN8633;@RN5616;@RN11143;@RN7550]. Shape ranges described by each principal axis are commonly visualized using thin-plate spline warping of a reference image [@RN1731;@RN479].
+Principal components analysis [@RN1746] was used to visualize shape variation among the elliptical bifaces, and the scatterplot represents the dispersion of shapes in tangent space [@RN8633;@RN5616;@RN11143;@RN7550]. Shape ranges described by each principal axis are commonly visualized using thin-plate spline warping of a reference image [@RN1731;@RN479].
 
-```{r figpca, out.width = "100%", dpi = 300, fig.cap="PCA summarizing shape variation in elliptical bifaces."}
+```{r figpca, out.width = "100%", dpi = 300, fig.cap="PCA summarizing shape variation in elliptical bifaces, where gray circles represent ColorGroup A, and orange plus signs represent ColorGroup B."}
 knitr::include_graphics('./img/pca.png')
 ```
 

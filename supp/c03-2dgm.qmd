@@ -1,5 +1,6 @@
 ---
 title: "Geometric Morphometrics"
+bibliography: [book.bib]
 ---
 
 Does elliptical biface morphology differ between ColorGroup A and ColorGroup B?
@@ -17,7 +18,7 @@ library(ggplot2)
 
 # read data and define number of sLMs ----
 shapes <- readShapes("shapes")
-shapesGM <- readland.shapes(shapes, nCurvePts = c(8, 10, 18))
+shapesGM <- readland.shapes(shapes, nCurvePts = c(15, 20, 35))
 
 # read qualitative data
 qdata <- read.csv("qdata.csv", 
@@ -45,6 +46,25 @@ gdf <- geomorph.data.frame(shape = Y.gpa$coords,
 qdata$csz <- Y.gpa$Csize
 ```
 
+## Boxplot (centroid size)
+
+```{r box, echo=TRUE, out.width = "100%", dpi = 300, warning=FALSE}
+# attributes
+csz <- qdata$csz
+ColorG <- qdata$ColorGroup
+
+# palette
+pal = wes_palette("Moonrise2")
+
+# boxplot of Perdiz arrow points by region
+ggplot(qdata, aes(x = ColorG, y = csz, color = ColorG)) +
+  geom_boxplot() +
+  geom_dotplot(binaxis = 'y', stackdir = 'center', dotsize = 0.3) +
+  scale_color_manual(values = pal) +
+  theme(legend.position = "none") +
+  labs(x = 'ColorGroup', y = 'Centroid Size')
+```
+
 ## Principal Components Analysis
 
 Principal components analysis [@RN1746] was used to visualise shape variation among the Perdiz arrow points. The shape changes described by each principal axis are commonly visualized using thin-plate spline warping of a reference 3D mesh [@RN1731;@RN479].
@@ -67,6 +87,24 @@ pc.plot <- plot(pca,
 shapeHulls(pc.plot, 
            groups = qdata$ColorGroup,
            group.cols = col.hull)
+
+# plot x/y maxima/minima
+## x - minima
+mean.shape <- mshape(Y.gpa$coords)
+plotRefToTarget(pca$shapes$shapes.comp1$min, 
+                mean.shape)
+
+## x - maxima
+plotRefToTarget(pca$shapes$shapes.comp1$max, 
+                mean.shape)
+
+## y - minima
+plotRefToTarget(pca$shapes$shapes.comp2$min, 
+                mean.shape)
+
+## y - maxima
+plotRefToTarget(pca$shapes$shapes.comp2$max, 
+                mean.shape)
 ```
 
 ## Procrustes ANOVA

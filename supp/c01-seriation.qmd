@@ -51,8 +51,6 @@ Load the seriation package to use the the manhattan distance matrices to compare
 
 The seriation package has multiple methods for seriating distance matrices. The ARSA (Anti-Robinson seriation by simulated annealing) method attempts to minimize the linear seriation criterion defined by Robinson. Two other methods use branch and bound algorithms (BBURCG and BBWRCG) focus on the gradient measures.
 
-The five ordinations are then compared to the original order of the data. The detrended correspondence ordering is better than the correspondence ordering, but the permutation orderings are better. The ARSA and BBWRCG oderings are the same and the BBURCG ordering differs only by the switching of the positions of 16RR1-BP2 (S) and 16CD12-BP5 (N). The first (and third) orderings have the best values for AR_deviations (lowest) and Gradient_weighted (highest) whereas the second ordering has the best values for AR_events (lowest) and Gradient_raw (highest).
-
 The battleship plot shows the first ordering. 
 
 ```{r seriation, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
@@ -81,7 +79,7 @@ gahagan_ca_ord <- permute(burial_dist, ca_ord)
 Results <- list(Original=burial_dist, Ordered1=burial_ord1, Ordered2=burial_ord2, Ordered3=burial_ord3, CA=gahagan_ca_ord, DEC=gahagan_dec_ord)
 round(sapply(Results, criterion, method=Crit), 1)
 
-battleship.plot(burial_pct[ord1, ], 
+battleship.plot(burial_pct[ord2, ], 
                 col="#798E87", 
                 cex.labels = .75)
 ```

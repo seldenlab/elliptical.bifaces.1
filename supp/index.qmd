@@ -35,7 +35,7 @@ knitr::include_graphics('./img/map.png')
 
 ## Seriation
 
-Temporally, 41AN13 is among the five sites—others include 41AN21, 41AN26, 41CE6, and 41CE12—that Kleinschmidt [-@RN1753, 213-220] analyzed when he built upon the work of Cole [-@RN863] to propose the Allen Phase in northeast Texas. Pulling directly from Kleinschmidt’s [-@RN1753, 220] Cemetery Data and Tentative Chronology table, a new seriation was assembled for the five Allen Phase sites listed in that table. For the purpose of the seriation, the Poynor Engraved and Patton Engraved types were each collapsed into a single column, and any row or column included in the Allen Phase section of Kleinschmidt’s [-@RN1753] table with a sum of zero was omitted.
+Temporally, 41AN13 is among the five sites—others include 41AN21, 41AN26, 41CE6, and 41CE12—that Kleinschmidt [-@RN1753, 213-220] analyzed when he built upon the work of Cole [-@RN863] to propose the Allen Phase in northeast Texas. Pulling directly from Kleinschmidt’s [-@RN1753, 220] _Cemetery Data and Tentative Chronology_ table, a new seriation was assembled for the five Allen Phase sites listed in that table. For the purpose of the seriation, the Poynor Engraved and Patton Engraved types were each collapsed into a single column, and any row or column included in the Allen Phase section of Kleinschmidt’s [-@RN1753] table with a sum of zero was omitted.
 
 ```{r figseriation, fig.cap="Seriation of Allen Phase burial contexts derived from Kleinschmidt (1982)."}
 

@@ -2,7 +2,7 @@
 title: "Seriation"
 ---
 
-Load the data and summarize row and column sums. Also create burial with only the counts using Ripley type-varieties as rownames. Finally create burial_pct with percentages.
+Load the data and summarize row and column sums. Also create burial with only the counts using types as rownames. Finally create burial_pct with percentages.
 
 ```{r load}
 library(dplyr)

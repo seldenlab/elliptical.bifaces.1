@@ -29,6 +29,8 @@ Use the first dimension of a correspondence analysis on burial_ct to provide an 
 
 ```{r ca, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
 burial_ca <- ca(burial_ct)
+plot.ca(burial_ca, labels=c(0, 2), cex = .75)
+
 # Correspondence Analysis Ordering on Dimension 1
 (ca_ord <- order(burial_ca$rowcoord[, 1]))
 ```
@@ -45,20 +47,41 @@ detach("package:vegan")
 detach("package:permute")
 ```
 
-The battleship plots illustrate ARSA orderings. 
+Load the seriation package to use the the manhattan distance matrices to compare the orderings. Robinson developed the method of seriation by permuting distance matrices. He used a similarity matrix where 200 was the index value for an ordering with itself. A perfect matrix should show consistent *decreases* from the diagonal horizontally and vertically. The seriation package implements this as a manhattan distance matrix where 0 is the index value for an ordering with itself. A perfect matrix should show consistent *increases* from the diagonal horizontally and vertically. The AR measure (Anti-Robinson) counts the number of times there is a decrease between adjacent values. The AR_deviation measure weights the index by the difference in values. These are loss measures meaning that low values are better. The Gradient_raw and Gradient_weighted indices are similar, but look at triplets. These are merit measures meaning that higher values are better. There are other options, but these are relatively straightforward.
 
-```{r seriation, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message = FALSE}
+The seriation package has multiple methods for seriating distance matrices. The ARSA (Anti-Robinson seriation by simulated annealing) method attempts to minimize the linear seriation criterion defined by Robinson. Two other methods use branch and bound algorithms (BBURCG and BBWRCG) focus on the gradient measures.
+
+The five ordinations are then compared to the original order of the data. The detrended correspondence ordering is better than the correspondence ordering, but the permutation orderings are better. The ARSA and BBWRCG oderings are the same and the BBURCG ordering differs only by the switching of the positions of 16RR1-BP2 (S) and 16CD12-BP5 (N). The first (and third) orderings have the best values for AR_deviations (lowest) and Gradient_weighted (highest) whereas the second ordering has the best values for AR_events (lowest) and Gradient_raw (highest).
+
+The battleship plot shows the first ordering. 
+
+```{r seriation, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
 library(seriation)
-burial_dist <- dist(burial_pct, method = "manhattan")
-
+burial_dist <- dist(burial_pct, method="manhattan")
 # Distance matrix:
 round(burial_dist, 1)
 set.seed(42)
-burial_ser1 <- seriate(burial_dist, method = "ARSA")
+burial_ser1 <- seriate(burial_dist, method="ARSA")
+burial_ser2 <- seriate(burial_dist, method="BBURCG")
+burial_ser3 <- seriate(burial_dist, method="BBWRCG")
 ord1 <- get_order(burial_ser1)
+ord2 <- get_order(burial_ser2)
+ord3 <- get_order(burial_ser3)
+# Suggested orderings
+rbind(ord1, ord2, ord3)
 
-## plot of ARSA 
+Crit <- c("AR_events", "AR_deviations", "Gradient_raw", "Gradient_weighted")
+burial_ord1 <- permute(burial_dist, ord1)
+burial_ord2 <- permute(burial_dist, ord2)
+burial_ord3 <- permute(burial_dist, ord3)
+gahagan_dec_ord <- permute(burial_dist, dec_ord)
+gahagan_ca_ord <- permute(burial_dist, ca_ord)
+
+# Comparison between original and ordered:
+Results <- list(Original=burial_dist, Ordered1=burial_ord1, Ordered2=burial_ord2, Ordered3=burial_ord3, CA=gahagan_ca_ord, DEC=gahagan_dec_ord)
+round(sapply(Results, criterion, method=Crit), 1)
+
 battleship.plot(burial_pct[ord1, ], 
-                col = "skyblue4", 
+                col="#798E87", 
                 cex.labels = .75)
 ```

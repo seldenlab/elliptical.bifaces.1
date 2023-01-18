@@ -51,7 +51,7 @@ Load the seriation package to use the the manhattan distance matrices to compare
 
 The seriation package has multiple methods for seriating distance matrices. The ARSA (Anti-Robinson seriation by simulated annealing) method attempts to minimize the linear seriation criterion defined by Robinson. Two other methods use branch and bound algorithms (BBURCG and BBWRCG) focus on the gradient measures.
 
-The battleship plot shows the first ordering. 
+The battleship plot shows the BBURCG/BBWRCG orderings, which are consistent. ARSA ordering is consistent with BBURCG/BBWRCG orderings for 2, but is inverted for 3/5 and 1/4.
 
 ```{r seriation, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
 library(seriation)

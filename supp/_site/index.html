@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Robert Z. Selden, Jr.">
-<meta name="dcterms.date" content="2023-01-20">
+<meta name="dcterms.date" content="2023-01-22">
 <meta name="description" content="Supplementary Materials">
 
 <title>Does elliptical biface morphology differ as a function of raw material color?</title>
@@ -254,7 +254,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 20, 2023</p>
+      <p class="date">January 22, 2023</p>
     </div>
   </div>
   
@@ -269,7 +269,7 @@ div.csl-indent {
 </blockquote>
 <section id="basis-of-inquiry" class="level1">
 <h1>Basis of inquiry</h1>
-<p>Archaeologists regularly assume that the physical properties of lithic raw materials are a determining factor in the morphology of stone tools; although, some have argued that this assumption warrants regular testing. Raw material nodule size and mechanical flaking properties are routinely advanced to account for morphological differences that occur between sites and assemblages. The quantitative analysis of raw material color provides a consistent, and replicable means of assigning the bifaces to distinct raw material color groups. To evaluate elliptical biface morphology as a function of raw material color, each elliptical biface from 41AN13 was first assigned to a raw material color group, then analyzed using the tools of geometric morphometrics. Results demonstrate that elliptical bifaces differ significantly in shape, but not size, by raw material color group. This finding supports the interpretation that extralocal producers—and local Caddo users/knappers—conditioned elliptical biface shape not based upon nodule size or mechanical flaking properties, but on the basis of raw material color.</p>
+<p>Archaeologists regularly assume that the physical properties of lithic raw materials are a determining factor in the morphology of stone tools; although, some have argued that this assumption warrants regular testing. Raw material nodule size and mechanical flaking properties are routinely advanced to account for morphological differences that occur between sites and assemblages. The quantitative analysis of raw material color provides a consistent, and reproducible means of assigning the bifaces to raw material color groups. To evaluate elliptical biface morphology as a function of raw material color, each elliptical biface from 41AN13 was first assigned to a raw material color group, then analyzed using the tools of geometric morphometrics. Results demonstrate that elliptical bifaces differ significantly in shape, but not size, by raw material color group. This finding supports the interpretation that extralocal producers—and local Caddo users/knappers—conditioned elliptical biface shape not based upon nodule size or mechanical flaking properties, but on the basis of raw material color.</p>
 <section id="keywords" class="level2">
 <h2 class="anchored" data-anchor-id="keywords">Keywords</h2>
 <p><em>Caddo; lithics; computational archaeology; archaeoinformatics; museum studies; digital humanities; non-Western art history, ovoid biface, Galt biface, Jowell knife, Jowell knives, Jowell biface, Nikolas knife, lithics, parallel-oblique flaking</em></p>
@@ -306,13 +306,13 @@ div.csl-indent {
 </section>
 <section id="color" class="level2">
 <h2 class="anchored" data-anchor-id="color">Color</h2>
-<p>The 13 complete elliptical bifaces were scanned at 1200 dpi using an HP ScanJet G4050. Images were subsequently transferred to a transparent background in Photoshop in preparation for analysis using the <code>colordistance</code> package in R <span class="citation" data-cites="R RN11200">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN11200" role="doc-biblioref">Weller and Westneat 2019</a>)</span>. All images were converted from RGB to CIE Lab color space using the D65 (indirect sunlight) reference white as the default for color conversion, and the upper and lower limits of the color range were determined based on colors present in the sample. A histogram binning method was used to group similar colors, and pairwise distances between histograms were computed using earth mover’s distance, yielding three distinct raw material color groups <span class="citation" data-cites="RN11201">(<a href="#ref-RN11201" role="doc-biblioref">Rubner and Tomasi 2001</a>)</span>. Since one cluster included only a single biface (81), it was dropped from the analysis. The remaining bifaces were coded as ColorGroup A and ColorGroup B for the analysis of elliptical biface morphology. Images of the bifaces are not included here due to the fact that they originated from Caddo burial contexts.</p>
+<p>The 19 elliptical bifaces from 41AN13 were scanned at 1200 dpi using an HP ScanJet G4050. Images were subsequently transferred to a transparent background in Photoshop in preparation for analysis using the <code>colordistance</code> package in R <span class="citation" data-cites="R RN11200">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN11200" role="doc-biblioref">Weller and Westneat 2019</a>)</span>. All images were converted from RGB to CIE Lab color space using the D65 (indirect sunlight) reference white as the default for color conversion, and the upper and lower limits of the color range were determined based on colors present in the sample. A histogram binning method was used to group similar colors, and pairwise distances between histograms were computed using earth mover’s distance, yielding three distinct raw material color groups <span class="citation" data-cites="RN11201">(<a href="#ref-RN11201" role="doc-biblioref">Rubner and Tomasi 2001</a>)</span>. Since one cluster included only a single biface (81), it was dropped from the analysis. The remaining bifaces were coded as ColorGroup A and ColorGroup B for the analysis of elliptical biface morphology. Images of the bifaces are not included here due to the fact that they originated from Caddo burial contexts. The 12 whole/complete elliptical bifaces were subsequently used in an analysis of biface morphology between raw material color groups.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/color.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./img/color.png" class="img-fluid figure-img" width="3300"></p>
+<p><img src="./img/color.png" class="img-fluid figure-img" width="2100"></p>
 <p></p><figcaption class="figure-caption">Elliptical bifaces from 41AN13 were used to identify raw material color groups. In this graph, dark pink corresponds to bifaces that express the greatest differences in color, while those in dark blue correspond to bifaces with the greatest similarities. By not splitting the clusters further than two groups, raw material color group assignments allow for shifts in raw material tint that articulate with patination.</figcaption><p></p>
 </figure>
 </div>
@@ -321,7 +321,7 @@ div.csl-indent {
 </section>
 <section id="geometric-morphometrics" class="level2">
 <h2 class="anchored" data-anchor-id="geometric-morphometrics">Geometric morphometrics</h2>
-<p>Prior to landmarking, elliptical bifaces from Millsap Cache and Jowell Farm were oriented with the most heavily retouched edge at top right. The landmarking protocol uses three landmarks; two horizontal tangents (top/bottom), and the third placed at the furthest extent of the retouched edge bearing the heaviest amount of retouch. Landmarks and semilandmarks were applied in R using the <code>StereoMorph</code> library <span class="citation" data-cites="R RN8973">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN8973" role="doc-biblioref">Olsen and Westneat 2015</a>)</span>. Some bifaces include multiple areas of heavy retouch at the top and bottom of the same lateral edge, while others include one retouched edge at top right and another at bottom left, similar to alternately beveled bifaces.</p>
+<p>Prior to landmarking, elliptical bifaces from 41AN13 were oriented with the most heavily retouched edge at top right. The landmarking protocol uses three landmarks; two horizontal tangents (top/bottom), and the third placed at the furthest extent of the retouched edge bearing the heaviest amount of retouch. Landmarks and semilandmarks were applied in R using the <code>StereoMorph</code> library <span class="citation" data-cites="R RN8973">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN8973" role="doc-biblioref">Olsen and Westneat 2015</a>)</span>. Some bifaces include multiple areas of heavy retouch at the top and bottom of the same lateral edge, while others include one retouched edge at top right and another at bottom left, similar to alternately beveled bifaces.</p>
 <p>To identify which edge was most heavily retouched, we employed a modified approach to the flaking index initially developed by Miller <span class="citation" data-cites="RN11459">(<a href="#ref-RN11459" role="doc-biblioref">2007</a>)</span>. The modified approach uses counts of flake scars from each edge in the two most heavily worked areas, paired with a measure of edge length (inclusive of curvature - this is not a linear metric). The number of flake scars was then divided by the length of the worked edge, with the heaviest worked edge identified by the greater value.</p>
 <section id="generalized-procrustes-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="generalized-procrustes-analysis">Generalized Procrustes Analysis</h3>
@@ -389,7 +389,7 @@ div.csl-indent {
 </section>
 <section id="colophon" class="level1 unnumbered">
 <h1 class="unnumbered">Colophon</h1>
-<p>This version of the analysis was generated on 2023-01-20 08:31:58 using the following computational environment and dependencies:</p>
+<p>This version of the analysis was generated on 2023-01-22 06:25:13 using the following computational environment and dependencies:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># what R packages and versions were used?</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"devtools"</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()) devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -404,7 +404,7 @@ div.csl-indent {
  collate  English_United States.utf8
  ctype    English_United States.utf8
  tz       America/Chicago
- date     2023-01-20
+ date     2023-01-22
  pandoc   2.19.2 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
@@ -471,7 +471,7 @@ div.csl-indent {
 <div class="cell-output cell-output-stdout">
 <pre><code>Local:    main D:/github/elliptical.bifaces.1
 Remote:   main @ origin (https://github.com/seldenlab/elliptical.bifaces.1)
-Head:     [0baf09b] 2023-01-19: &lt;edit index&gt;</code></pre>
+Head:     [fa2d19d] 2023-01-20: &lt;minor edits&gt;</code></pre>
 </div>
 </div>
 

@@ -197,101 +197,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare colors</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(colordistance)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># get image paths</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># convert from rgb to CIELab</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>image.paths <span class="ot">&lt;-</span> colordistance<span class="sc">::</span><span class="fu">getImagePaths</span>(<span class="st">'jowell.farm'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recolorize)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># get image paths</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>images <span class="ot">&lt;-</span> colordistance<span class="sc">::</span><span class="fu">getImagePaths</span>(<span class="st">'jowell.farm'</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># CIELab histograms</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>lab.hist.list <span class="ot">&lt;-</span> colordistance<span class="sc">::</span><span class="fu">getLabHistList</span>(image.paths,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">bins =</span> <span class="dv">2</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">bin.avg =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">sample.size =</span> <span class="dv">10000</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">ref.white =</span> <span class="st">'D65'</span>, </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">lower =</span> lower, </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">upper =</span> upper,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">plotting =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">pausing =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># generate color distance matrix</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">imageClusterPipeline</span>(images,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">cluster.method =</span> <span class="st">'hist'</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">distance.method =</span> <span class="st">'emd'</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">lower =</span> <span class="st">'lower'</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                            <span class="at">upper =</span> <span class="st">'upper'</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                            <span class="at">color.space =</span> <span class="st">'lab'</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                            <span class="at">ref.white =</span> <span class="st">'D65'</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                            <span class="at">from =</span> sRGB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   |                                                                            
-  |                                                                      |   0%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |                                                                      |   0%
   |                                                                            
-  |=====                                                                 |   8%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |====                                                                  |   5%
   |                                                                            
-  |===========                                                           |  15%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |=======                                                               |  11%
   |                                                                            
-  |================                                                      |  23%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |===========                                                           |  16%
   |                                                                            
-  |======================                                                |  31%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |===============                                                       |  21%
   |                                                                            
-  |===========================                                           |  38%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |==================                                                    |  26%
   |                                                                            
-  |================================                                      |  46%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |======================                                                |  32%
   |                                                                            
-  |======================================                                |  54%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |==========================                                            |  37%
   |                                                                            
-  |===========================================                           |  62%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |=============================                                         |  42%
   |                                                                            
-  |================================================                      |  69%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |=================================                                     |  47%
   |                                                                            
-  |======================================================                |  77%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |=====================================                                 |  53%
   |                                                                            
-  |===========================================================           |  85%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |=========================================                             |  58%
   |                                                                            
-  |=================================================================     |  92%</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
+  |============================================                          |  63%
+  |                                                                            
+  |================================================                      |  68%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |=======================================================               |  79%
+  |                                                                            
+  |===========================================================           |  84%
+  |                                                                            
+  |===============================================================       |  89%
+  |                                                                            
+  |==================================================================    |  95%
   |                                                                            
   |======================================================================| 100%</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## distance matrix of color cluster sets</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>lab.dist.matrix <span class="ot">&lt;-</span> colordistance<span class="sc">::</span><span class="fu">getColorDistanceMatrix</span>(lab.hist.list,</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">method =</span> <span class="st">'emd'</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">plotting =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="c02-color_files/figure-html/color-1.png" class="img-fluid" style="width:100.0%"></p>
-</div>
-<div class="cell-output-display">
-<p><img src="c02-color_files/figure-html/color-2.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 

@@ -6,25 +6,18 @@ title: "Raw Material Color"
 # compare colors
 library(here)
 library(colordistance)
+library(recolorize)
 
 # get image paths
-# convert from rgb to CIELab
-image.paths <- colordistance::getImagePaths('jowell.farm')
+images <- colordistance::getImagePaths('jowell.farm')
 
-# CIELab histograms
-par(mfrow = c(3, 5))
-lab.hist.list <- colordistance::getLabHistList(image.paths,
-                                               bins = 2,
-                                               bin.avg = TRUE,
-                                               sample.size = 10000,
-                                               ref.white = 'D65', 
-                                               lower = lower, 
-                                               upper = upper,
-                                               plotting = TRUE,
-                                               pausing = FALSE)
-
-## distance matrix of color cluster sets
-lab.dist.matrix <- colordistance::getColorDistanceMatrix(lab.hist.list,
-                                                         method = 'emd',
-                                                         plotting = TRUE)
+# generate color distance matrix
+cdm <- imageClusterPipeline(images,
+                            cluster.method = 'hist',
+                            distance.method = 'emd',
+                            lower = 'lower',
+                            upper = 'upper',
+                            color.space = 'lab',
+                            ref.white = 'D65',
+                            from = sRGB)
 ```

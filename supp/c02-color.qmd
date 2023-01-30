@@ -91,7 +91,7 @@ nmds_scores <- scores(metaMDS(comm = as.dist(cdm)))
 plot(nmds_scores,
      xlim = c(-0.09, 0.11),
      ylim = c(-0.05, 0.04),
-     cex = 1
+     cex = 0.001
 )
 
 #Create convex hulls that highlight point clusters based on grouping dataframe

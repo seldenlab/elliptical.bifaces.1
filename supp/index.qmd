@@ -50,7 +50,12 @@ The elliptical bifaces were run a second time, then coded as ColorGroup A and Co
 
 ```{r xcolor, fig.cap="Elliptical bifaces from 41AN13 were used to identify raw material color groups. In this graph, dark pink corresponds to bifaces that express the greatest differences in color, while those in dark blue correspond to bifaces with the greatest similarities. By not splitting the clusters further than two groups, raw material color group assignments allow for shifts in raw material tint that articulate with patination."}
 
-knitr::include_graphics('./img/color.png')
+knitr::include_graphics('./img/color_distance_matrix.png')
+```
+
+```{r xnmds, fig.cap="Non-metric multidimensional scaling used to summarize color variation in elliptical bifaces, where ColorGroup A is depicted in gray, and ColorGroup B is depicted in orange with each biface plotted in color space to visualize color variation."}
+
+knitr::include_graphics('./img/nmds_elliptical.png')
 ```
 
 ## Geometric morphometrics

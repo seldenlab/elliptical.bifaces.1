@@ -17,8 +17,10 @@ images <- colordistance::getImagePaths('jowell.farm')
 # generate color distance matrix
 cdm <- imageClusterPipeline(images)
 
+# replace NAs with 0
+cdm[is.na(cdm)] = 0
 # export color distance matrix
-write.csv(cdm, file = "gahagan_color_distance_matrix.csv")
+write.csv(cdm, file = "color_distance_matrix.csv")
 ```
 
 ## Permutational MANOVA
@@ -26,27 +28,90 @@ write.csv(cdm, file = "gahagan_color_distance_matrix.csv")
 ```{r manova, out.width = "100%", dpi = 300, echo=TRUE}
 # perMANOVA
 # import color distance matrix
-c.data <- read.csv("gahagan_color_distance_matrix.csv",
+c.data <- read.csv("color_distance_matrix.csv",
                    header = TRUE,
                    as.is=TRUE)
 
 # import qual data
-g.data <- read.csv("qdata.csv",
+e.data <- read.csv("qdata.csv",
                    header = TRUE,
                    as.is=TRUE)
 
 # preliminaries
-colnames(g.data) <- c('X','site','ColorGroup') # rename columns prior to join
-gahagan <- left_join(g.data, c.data, by = "X") # left join by specimen number
-gahagan.dist <- gahagan[,4:15] # distance matrix
+colnames(e.data) <- c('X','site','ColorGroup') # rename columns prior to join
+elliptical <- left_join(e.data, c.data, by = "X") # left join by specimen number
+elliptical.dist <- elliptical[,4:15] # distance matrix
 set.seed(10) # make results reproducible
 
 # model: biface color as a function of color group
-el.biface.colour <- adonis2(gahagan.dist ~ ColorGroup,
-                            data = gahagan,
+el.biface.colour <- adonis2(elliptical.dist ~ ColorGroup,
+                            data = elliptical,
                             permutations = 10000,
                             method = 'bray')
 
 ## does color differ by ColorGroup?
 el.biface.colour
+```
+
+## Visualization
+
+```{r nmds, out.width = "100%", dpi = 300, echo=TRUE}
+# define add_image function
+add_image <- function(obj,
+                      x = NULL,
+                      y = NULL,
+                      width = NULL,
+                      interpolate = TRUE,
+                      angle = 0) {
+  
+  # get current plotting window parameters:
+  usr <- graphics::par()$usr
+  pin <- graphics::par()$pin
+  
+  # image dimensions and scaling factor:
+  imdim <- dim(obj)
+  sf <- imdim[1] / imdim[2]
+  
+  # set the width of the image (relative to x-axis)
+  w <- width / (usr[2] - usr[1]) * pin[1]
+  h <- w * sf
+  hu <- h / pin[2] * (usr[4] - usr[3])
+  
+  # plot the image
+  graphics::rasterImage(image = obj,
+                        xleft = x - (width / 2), xright = x + (width / 2),
+                        ybottom = y - (hu / 2), ytop = y + (hu/2),
+                        interpolate = interpolate,
+                        angle = angle)
+}
+
+nmds_scores <- scores(metaMDS(comm = as.dist(cdm)))
+
+# set plot parameters
+plot(nmds_scores,
+     xlim = c(-0.09, 0.11),
+     ylim = c(-0.05, 0.04),
+     cex = 1
+)
+
+#Create convex hulls that highlight point clusters based on grouping dataframe
+ordihull(
+  nmds_scores,
+  e.data$ColorGroup,
+  draw = c("polygon"),
+  col = NULL,
+  border = c("#798E87","#C27D38")
+)
+
+# add images
+for (i in 1:length(images)) {
+       
+    # read image:
+    img <- png::readPNG(images[i]) 
+    # add image:
+    add_image(img,
+              x = nmds_scores[i, 1],
+              y = nmds_scores[i, 2],
+              width = 0.008)
+}
 ```

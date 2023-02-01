@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Robert Z. Selden, Jr.">
-<meta name="dcterms.date" content="2023-01-30">
+<meta name="dcterms.date" content="2023-02-01">
 <meta name="description" content="Supplementary Materials">
 
 <title>Does elliptical biface morphology differ as a function of raw material color?</title>
@@ -254,7 +254,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 30, 2023</p>
+      <p class="date">February 1, 2023</p>
     </div>
   </div>
   
@@ -269,7 +269,7 @@ div.csl-indent {
 </blockquote>
 <section id="basis-of-inquiry" class="level1">
 <h1>Basis of inquiry</h1>
-<p>Archaeologists regularly assume that the physical properties of lithic raw materials are a determining factor in the morphology of stone tools; although, some have argued that this assumption warrants regular testing. Raw material nodule size and mechanical flaking properties are routinely advanced to account for morphological differences that occur between sites and assemblages. The quantitative analysis of raw material color provides a consistent, and reproducible means of assigning the bifaces to raw material color groups. To evaluate elliptical biface morphology as a function of raw material color, each elliptical biface from 41AN13 was first assigned to a raw material color group, then analyzed using the tools of geometric morphometrics. Results demonstrate that elliptical bifaces differ significantly in shape, but not size, by raw material color group. This finding supports the interpretation that extralocal producers—and local Caddo users/knappers—conditioned elliptical biface shape not based upon nodule size or mechanical flaking properties, but on the basis of raw material color.</p>
+<p>The physical properties associated with lithic raw materials are regularly assumed to be a determining factor that articulates with stone tool morphology. Among those attributes most frequently advanced to account for differences between sites and assemblages are raw material size and mechanical flaking properties. Quantitative analysis of raw material color can provide a consistent, and replicable, means of assigning material to raw material color groups. To evaluate whether elliptical biface morphology differs as a function of raw material color, each elliptical biface from 41AN13 was assigned to a raw material color group, then analyzed using the tools of geometric morphometrics. Results demonstrate that elliptical bifaces differ significantly in shape, but not size, by raw material color group. This finding supports the interpretation that extralocal producers—and local Caddo users/knappers—conditioned elliptical biface shape not based upon nodule size or mechanical flaking properties, but on the basis of raw material color.</p>
 <section id="keywords" class="level2">
 <h2 class="anchored" data-anchor-id="keywords">Keywords</h2>
 <p><em>Caddo; lithics; computational archaeology; archaeoinformatics; museum studies; digital humanities; non-Western art history, ovoid biface, Galt biface, Jowell knife, Jowell knives, Jowell biface, Nikolas knife, lithics, parallel-oblique flaking</em></p>
@@ -307,7 +307,6 @@ div.csl-indent {
 <section id="color" class="level2">
 <h2 class="anchored" data-anchor-id="color">Color</h2>
 <p>The 13 elliptical bifaces from 41AN13 were scanned at 1200 dpi using an HP ScanJet G4050. Images were subsequently transferred to a transparent background in Photoshop in preparation for analysis using the <code>colordistance</code> package in R <span class="citation" data-cites="R RN11200">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN11200" role="doc-biblioref">Weller and Westneat 2019</a>)</span>. A histogram binning method was used to group similar colors, and pairwise distances between histograms were computed using earth mover’s distance, yielding three distinct raw material color groups <span class="citation" data-cites="RN11201">(<a href="#ref-RN11201" role="doc-biblioref">Rubner and Tomasi 2001</a>)</span>. Since one cluster included only a single biface (81), it was dropped from the analysis.</p>
-<p>The elliptical bifaces were run a second time, then coded as ColorGroup A and ColorGroup B. Images of the bifaces are not included here due to the fact that they originated from Caddo burial contexts. To test whether the bifaces differ in color, the color distance matrix was exported, joined with the qualitative data, then analyzed using a permutational multivariate analysis of variance (perMANOVA), and were found to differ significantly (permutations = 10,000; Rsq = 0.60308; Pr(&gt;F) = 0.0011). The 12 whole/complete elliptical bifaces were subsequently used in an analysis of biface morphology between raw material color groups.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/color_distance_matrix.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -319,6 +318,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
+<p>The elliptical bifaces were run a second time, then coded as ColorGroup A and ColorGroup B. Images of the bifaces are not included here due to the fact that they originated from Caddo burial contexts. To test whether the bifaces differ in color, the color distance matrix was exported, joined with the qualitative data, then analyzed using a permutational multivariate analysis of variance (perMANOVA) in the <code>vegan</code> package, where the color groups were found to differ significantly (permutations = 10,000; Rsq = 0.60308; Pr(&gt;F) = 0.0011). A non-metric multidimensional scaling plot (NMDS) was used to illustrate the color ranges for elliptical bifaces from ColorGroup A and ColorGroup B. The 12 whole/complete elliptical bifaces were subsequently used in an analysis of biface morphology between raw material color groups.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/nmds_elliptical.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -401,7 +401,7 @@ div.csl-indent {
 </section>
 <section id="colophon" class="level1 unnumbered">
 <h1 class="unnumbered">Colophon</h1>
-<p>This version of the analysis was generated on 2023-01-30 06:52:51 using the following computational environment and dependencies:</p>
+<p>This version of the analysis was generated on 2023-02-01 07:02:54 using the following computational environment and dependencies:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># what R packages and versions were used?</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"devtools"</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()) devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -416,7 +416,7 @@ div.csl-indent {
  collate  English_United States.utf8
  ctype    English_United States.utf8
  tz       America/Chicago
- date     2023-01-30
+ date     2023-02-01
  pandoc   2.19.2 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
@@ -483,7 +483,7 @@ div.csl-indent {
 <div class="cell-output cell-output-stdout">
 <pre><code>Local:    main D:/github/elliptical.bifaces.1
 Remote:   main @ origin (https://github.com/seldenlab/elliptical.bifaces.1)
-Head:     [a3ef8e0] 2023-01-30: &lt;init nmds&gt;</code></pre>
+Head:     [590d31c] 2023-01-30: &lt;edit supp&gt;</code></pre>
 </div>
 </div>
 

@@ -171,7 +171,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
 <p><img src=".\img/slab.png" class="img-fluid"></p>
 </div></div>
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#recalibrate-legacy-date" id="toc-recalibrate-legacy-date" class="nav-link active" data-scroll-target="#recalibrate-legacy-date">Recalibrate legacy date</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -371,8 +377,96 @@ Gradient_weighted    135.3    534.1    534.1    534.1 -162.7   6.7</code></pre>
 <p><img src="c01-seriation_files/figure-html/seriation-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
+<section id="recalibrate-legacy-date" class="level1">
+<h1>Recalibrate legacy date</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check for update</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(oxcAAR)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcarbon)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 methods overwritten by 'proxy':
+  method               from    
+  print.registry_field registry
+  print.registry_entry registry</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'rcarbon'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    combine</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quickSetupOxcal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Oxcal doesn't seem to be installed. Downloading it now:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Oxcal stored successful at C:\Users\seldenjrz\AppData\Local\Temp\Rtmp6HqGJe!</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Oxcal path set!</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># an21</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>an21 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">bp =</span> <span class="fu">c</span>(<span class="dv">300</span>),</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">std =</span> <span class="fu">c</span>(<span class="dv">40</span>),</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"41AN21"</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>an21.cal<span class="ot">&lt;-</span><span class="fu">oxcalCalibrate</span>(an21<span class="sc">$</span>bp,</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>                         an21<span class="sc">$</span>std,</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>                         an21<span class="sc">$</span>names)</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>an21.cal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=============================
+    R_Date: 41AN21
+=============================
 
 
+BP = 300, std = 40
+
+
+unmodelled:                    posterior:
+
+one sigma                      
+1516 AD - 1590 AD (50.37%)     
+1620 AD - 1648 AD (17.9%)      
+
+two sigma                      
+1480 AD - 1660 AD (95.45%)     
+
+three sigma                    
+1450 AD - 1678 AD (97.92%)     
+1764 AD - 1800 AD (1.81%)      
+
+Calibrated with:
+     Atmospheric data from Reimer et al (2020) </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plot</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(an21.cal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in
+ggplot2 3.3.4.
+ℹ Please use "none" instead.
+ℹ The deprecated feature was likely used in the oxcAAR package.
+  Please report the issue to the authors.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="c01-seriation_files/figure-html/legacy-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## curveplot</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">calcurve_plot</span>(an21.cal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="c01-seriation_files/figure-html/legacy-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

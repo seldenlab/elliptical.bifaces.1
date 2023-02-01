@@ -83,3 +83,28 @@ battleship.plot(burial_pct[ord2, ],
                 col="#798E87", 
                 cex.labels = .75)
 ```
+
+# Recalibrate legacy date
+
+```{r legacy}
+# check for update
+library(oxcAAR)
+library(rcarbon)
+quickSetupOxcal()
+
+# an21
+an21 <- data.frame(bp = c(300),
+                   std = c(40),
+                   names = c("41AN21")
+)
+an21.cal<-oxcalCalibrate(an21$bp,
+                         an21$std,
+                         an21$names)
+an21.cal
+
+## plot
+plot(an21.cal)
+
+## curveplot
+calcurve_plot(an21.cal)
+```

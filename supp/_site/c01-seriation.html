@@ -199,7 +199,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Load the data and summarize row and column sums. Also create burial with only the counts using types as rownames. Finally create burial_pct with percentages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -254,7 +253,6 @@ Plain        3</code></pre>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(burial_ct) <span class="ot">&lt;-</span> labels</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>burial_pct <span class="ot">&lt;-</span> burial_ct <span class="sc">/</span> RS  <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Use the first dimension of a correspondence analysis on burial_ct to provide an initial ordering of the data (ca_ord).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>burial_ca <span class="ot">&lt;-</span> <span class="fu">ca</span>(burial_ct)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ca</span>(burial_ca, <span class="at">labels=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="at">cex =</span> .<span class="dv">75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -267,7 +265,6 @@ Plain        3</code></pre>
 <pre><code>[1] 3 2 1 4 5</code></pre>
 </div>
 </div>
-<p>Use the first projection of a detrended correspondence analysis on burial_ct to provide an alternate ordering of the data (dec_ord). Use correlation to compare the two sequences. Detach packages that contain functions that interfere with the seriation package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -300,9 +297,6 @@ tau
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">"package:vegan"</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">"package:permute"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Load the seriation package to use the the manhattan distance matrices to compare the orderings. Robinson developed the method of seriation by permuting distance matrices. He used a similarity matrix where 200 was the index value for an ordering with itself. A perfect matrix should show consistent <em>decreases</em> from the diagonal horizontally and vertically. The seriation package implements this as a manhattan distance matrix where 0 is the index value for an ordering with itself. A perfect matrix should show consistent <em>increases</em> from the diagonal horizontally and vertically. The AR measure (Anti-Robinson) counts the number of times there is a decrease between adjacent values. The AR_deviation measure weights the index by the difference in values. These are loss measures meaning that low values are better. The Gradient_raw and Gradient_weighted indices are similar, but look at triplets. These are merit measures meaning that higher values are better. There are other options, but these are relatively straightforward.</p>
-<p>The seriation package has multiple methods for seriating distance matrices. The ARSA (Anti-Robinson seriation by simulated annealing) method attempts to minimize the linear seriation criterion defined by Robinson. Two other methods use branch and bound algorithms (BBURCG and BBWRCG) focus on the gradient measures.</p>
-<p>The battleship plot shows the BBURCG/BBWRCG orderings, which are consistent. ARSA ordering is consistent with BBURCG/BBWRCG orderings for 2, but is inverted for 3/5 and 1/4.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(seriation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -403,7 +397,7 @@ Attaching package: 'rcarbon'</code></pre>
 <pre><code>Oxcal doesn't seem to be installed. Downloading it now:</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Oxcal stored successful at C:\Users\seldenjrz\AppData\Local\Temp\Rtmp6HqGJe!</code></pre>
+<pre><code>Oxcal stored successful at C:\Users\seldenjrz\AppData\Local\Temp\Rtmp6VNsk3!</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Oxcal path set!</code></pre>

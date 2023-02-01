@@ -2,8 +2,6 @@
 title: "Seriation"
 ---
 
-Load the data and summarize row and column sums. Also create burial with only the counts using types as rownames. Finally create burial_pct with percentages.
-
 ```{r load}
 library(dplyr)
 library(ca)
@@ -25,8 +23,6 @@ rownames(burial_ct) <- labels
 burial_pct <- burial_ct / RS  * 100
 ```
 
-Use the first dimension of a correspondence analysis on burial_ct to provide an initial ordering of the data (ca_ord).
-
 ```{r ca, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
 burial_ca <- ca(burial_ct)
 plot.ca(burial_ca, labels=c(0, 2), cex = .75)
@@ -34,8 +30,6 @@ plot.ca(burial_ca, labels=c(0, 2), cex = .75)
 # Correspondence Analysis Ordering on Dimension 1
 (ca_ord <- order(burial_ca$rowcoord[, 1]))
 ```
-
-Use the first projection of a detrended correspondence analysis on burial_ct to provide an alternate ordering of the data (dec_ord). Use correlation to compare the two sequences. Detach packages that contain functions that interfere with the seriation package.
 
 ```{r decorana, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
 library(vegan)
@@ -46,12 +40,6 @@ burial_dec <- decorana(burial_ct)
 detach("package:vegan")
 detach("package:permute")
 ```
-
-Load the seriation package to use the the manhattan distance matrices to compare the orderings. Robinson developed the method of seriation by permuting distance matrices. He used a similarity matrix where 200 was the index value for an ordering with itself. A perfect matrix should show consistent *decreases* from the diagonal horizontally and vertically. The seriation package implements this as a manhattan distance matrix where 0 is the index value for an ordering with itself. A perfect matrix should show consistent *increases* from the diagonal horizontally and vertically. The AR measure (Anti-Robinson) counts the number of times there is a decrease between adjacent values. The AR_deviation measure weights the index by the difference in values. These are loss measures meaning that low values are better. The Gradient_raw and Gradient_weighted indices are similar, but look at triplets. These are merit measures meaning that higher values are better. There are other options, but these are relatively straightforward.
-
-The seriation package has multiple methods for seriating distance matrices. The ARSA (Anti-Robinson seriation by simulated annealing) method attempts to minimize the linear seriation criterion defined by Robinson. Two other methods use branch and bound algorithms (BBURCG and BBWRCG) focus on the gradient measures.
-
-The battleship plot shows the BBURCG/BBWRCG orderings, which are consistent. ARSA ordering is consistent with BBURCG/BBWRCG orderings for 2, but is inverted for 3/5 and 1/4.
 
 ```{r seriation, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE}
 library(seriation)

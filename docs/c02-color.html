@@ -210,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># get image paths</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>images <span class="ot">&lt;-</span> colordistance<span class="sc">::</span><span class="fu">getImagePaths</span>(<span class="st">'jowell.farm'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>images <span class="ot">&lt;-</span> colordistance<span class="sc">::</span><span class="fu">getImagePaths</span>(<span class="st">'images'</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># generate color distance matrix</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>cdm <span class="ot">&lt;-</span> <span class="fu">imageClusterPipeline</span>(images)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -287,9 +287,9 @@ Number of permutations: 10000
 
 adonis2(formula = elliptical.dist ~ ColorGroup, data = elliptical, permutations = 10000, method = "bray")
            Df SumOfSqs      R2      F Pr(&gt;F)   
-ColorGroup  1 0.020279 0.60308 15.194 0.0011 **
-Residual   10 0.013347 0.39692                 
-Total      11 0.033625 1.00000                 
+ColorGroup  1 0.017355 0.54754 12.102 0.0011 **
+Residual   10 0.014341 0.45246                 
+Total      11 0.031696 1.00000                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -329,51 +329,53 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>nmds_scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(<span class="fu">metaMDS</span>(<span class="at">comm =</span> <span class="fu">as.dist</span>(cdm)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run 0 stress 0.008459839 
-Run 1 stress 0.02545464 
-Run 2 stress 0.008462134 
-... Procrustes: rmse 0.00156159  max resid 0.003899977 
-... Similar to previous best
-Run 3 stress 0.008520373 
-... Procrustes: rmse 0.005898398  max resid 0.01612014 
-Run 4 stress 0.02545429 
-Run 5 stress 0.008505322 
-... Procrustes: rmse 0.003313433  max resid 0.008744871 
-... Similar to previous best
-Run 6 stress 0.008459851 
-... Procrustes: rmse 9.009674e-05  max resid 0.0001822552 
-... Similar to previous best
-Run 7 stress 0.02545473 
-Run 8 stress 0.008492078 
-... Procrustes: rmse 0.004280562  max resid 0.01156699 
-Run 9 stress 0.008477175 
-... Procrustes: rmse 0.003242055  max resid 0.008621894 
-... Similar to previous best
-Run 10 stress 0.03398646 
-Run 11 stress 0.03398642 
-Run 12 stress 0.0405603 
-Run 13 stress 0.03398638 
-Run 14 stress 0.008461066 
-... Procrustes: rmse 0.0005041842  max resid 0.001391817 
-... Similar to previous best
-Run 15 stress 0.008459737 
+<pre><code>Run 0 stress 0.002359043 
+Run 1 stress 0.002359033 
 ... New best solution
-... Procrustes: rmse 5.996499e-05  max resid 0.0001058378 
+... Procrustes: rmse 7.370306e-05  max resid 0.0001803341 
 ... Similar to previous best
-Run 16 stress 0.008460202 
-... Procrustes: rmse 0.0002618524  max resid 0.0007137576 
+Run 2 stress 0.002359044 
+... Procrustes: rmse 7.200579e-06  max resid 1.841054e-05 
 ... Similar to previous best
-Run 17 stress 0.008569326 
-... Procrustes: rmse 0.007783016  max resid 0.02151691 
-Run 18 stress 0.02545474 
-Run 19 stress 0.0254729 
-Run 20 stress 0.02545463 
-*** Best solution repeated 2 times</code></pre>
+Run 3 stress 0.006592334 
+Run 4 stress 0.03013175 
+Run 5 stress 0.002990682 
+Run 6 stress 0.002360174 
+... Procrustes: rmse 0.000276774  max resid 0.0006767623 
+... Similar to previous best
+Run 7 stress 0.002359042 
+... Procrustes: rmse 7.30705e-05  max resid 0.0001806727 
+... Similar to previous best
+Run 8 stress 0.004627369 
+Run 9 stress 0.03086111 
+Run 10 stress 0.002747674 
+... Procrustes: rmse 0.00645988  max resid 0.01427683 
+Run 11 stress 0.002359039 
+... Procrustes: rmse 4.212678e-06  max resid 1.027527e-05 
+... Similar to previous best
+Run 12 stress 0.03008173 
+Run 13 stress 0.03008665 
+Run 14 stress 0.006607301 
+Run 15 stress 0.002363562 
+... Procrustes: rmse 0.0004458354  max resid 0.00102643 
+... Similar to previous best
+Run 16 stress 0.002359063 
+... Procrustes: rmse 8.475637e-05  max resid 0.0002068861 
+... Similar to previous best
+Run 17 stress 0.3359239 
+Run 18 stress 0.002366426 
+... Procrustes: rmse 0.0005089264  max resid 0.001186586 
+... Similar to previous best
+Run 19 stress 0.002359036 
+... Procrustes: rmse 6.896409e-05  max resid 0.0001716627 
+... Similar to previous best
+Run 20 stress 0.03011572 
+*** Best solution repeated 9 times</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot parameters</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nmds_scores,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.09</span>, <span class="fl">0.11</span>),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">0.04</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.07</span>, <span class="fl">0.12</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.04</span>, <span class="fl">0.04</span>),</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.001</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
@@ -397,6 +399,43 @@ Run 20 stress 0.02545463
 <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">y =</span> nmds_scores[i, <span class="dv">2</span>],</span>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="fl">0.008</span>)</span>
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile
+
+Warning in png::readPNG(images[i]): libpng warning: iCCP: known incorrect sRGB
+profile</code></pre>
+</div>
 <div class="cell-output-display">
 <p><img src="c02-color_files/figure-html/nmds-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>

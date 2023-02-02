@@ -311,25 +311,25 @@ div.csl-indent {
 </section>
 <section id="color" class="level2">
 <h2 class="anchored" data-anchor-id="color">Color</h2>
-<p>The 13 elliptical bifaces from 41AN13 were scanned at 1200 dpi using an HP ScanJet G4050. Images were subsequently transferred to a transparent background in Photoshop in preparation for analysis using the <code>colordistance</code> package in R <span class="citation" data-cites="R RN11200">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN11200" role="doc-biblioref">Weller and Westneat 2019</a>)</span>. A histogram binning method was used to group similar colors, and pairwise distances between histograms were computed using earth mover’s distance, yielding three distinct raw material color groups <span class="citation" data-cites="RN11201">(<a href="#ref-RN11201" role="doc-biblioref">Rubner and Tomasi 2001</a>)</span>. Since one cluster included only a single biface (81), it was dropped from the analysis.</p>
+<p>Both sides of the 13 elliptical bifaces from 41AN13 were scanned at 1200 dpi using an HP ScanJet G4050. Images were subsequently transferred to a transparent background in Photoshop, where all labels were deleted in preparation for analysis using the <code>colordistance</code> package in R <span class="citation" data-cites="R RN11200">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN11200" role="doc-biblioref">Weller and Westneat 2019</a>)</span>. A histogram binning method was used to group similar colors, and pairwise distances between histograms were computed using earth mover’s distance, yielding three distinct raw material color groups <span class="citation" data-cites="RN11201">(<a href="#ref-RN11201" role="doc-biblioref">Rubner and Tomasi 2001</a>)</span>. Since one cluster included only a single biface (81), it was dropped from the analysis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/fig2.jpg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/fig2-2-01.jpg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./img/fig2.jpg" class="img-fluid figure-img" width="2294"></p>
+<p><img src="./img/fig2-2-01.jpg" class="img-fluid figure-img" width="2100"></p>
 <p></p><figcaption class="figure-caption">Color binning process for a single object; in a, image of a Perdiz arrow point with a transparent background; b, 3D scatterplot of 10,000 non-background pixels in CIE Lab color space; c, clusters from the histogram in b displayed in CIE Lab color space; and d, histogram showing the proportion of non-background pixels assigned to each of eight bins. In the matrix at bottom, dark pink corresponds to bifaces that express the greatest differences in color, while those in dark blue correspond to bifaces with the greatest similarities, with ColorGroup A highlighted in gray, and ColorGroup B in orange.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The elliptical bifaces were run a second time, then coded as ColorGroup A and ColorGroup B. Images of the bifaces are not included here due to the fact that they originated from Caddo burial contexts. To test whether the bifaces differ in color, the color distance matrix was exported, joined with the qualitative data, then analyzed using a permutational multivariate analysis of variance (perMANOVA) in the <code>vegan</code> package, where the color groups were found to differ significantly (permutations = 10,000; Rsq = 0.60308; Pr(&gt;F) = 0.0011). A non-metric multidimensional scaling plot (NMDS) was used to illustrate the color ranges for elliptical bifaces from ColorGroup A and ColorGroup B. The 12 whole/complete elliptical bifaces were subsequently used in an analysis of biface morphology between raw material color groups.</p>
+<p>The elliptical bifaces were run a second time, then coded as ColorGroup A and ColorGroup B. Images of the bifaces are not included here due to the fact that they originated from Caddo burial contexts. To test whether the bifaces differ in color, the color distance matrix was exported, joined with the qualitative data, then analyzed using a permutational multivariate analysis of variance (perMANOVA) in the <code>vegan</code> package, where the color groups were found to differ significantly (permutations = 10,000; Rsq = 0.54754; Pr(&gt;F) = 0.0011). A non-metric multidimensional scaling plot (NMDS) was used to illustrate the color ranges for elliptical bifaces from ColorGroup A and ColorGroup B. The 12 whole/complete elliptical bifaces were subsequently used in an analysis of biface morphology between raw material color groups.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/nmds_elliptical.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/nmds-elliptical.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./img/nmds_elliptical.png" class="img-fluid figure-img" width="799"></p>
+<p><img src="./img/nmds-elliptical.png" class="img-fluid figure-img" width="4200"></p>
 <p></p><figcaption class="figure-caption">Non-metric multidimensional scaling used to summarize color variation in elliptical bifaces, where ColorGroup A is depicted in gray, and ColorGroup B is depicted in orange with each biface plotted in color space to visualize color variation.</figcaption><p></p>
 </figure>
 </div>
@@ -406,7 +406,7 @@ div.csl-indent {
 </section>
 <section id="colophon" class="level1 unnumbered">
 <h1 class="unnumbered">Colophon</h1>
-<p>This version of the analysis was generated on 2023-02-02 09:17:45 using the following computational environment and dependencies:</p>
+<p>This version of the analysis was generated on 2023-02-02 13:59:57 using the following computational environment and dependencies:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># what R packages and versions were used?</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"devtools"</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()) devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -488,7 +488,7 @@ div.csl-indent {
 <div class="cell-output cell-output-stdout">
 <pre><code>Local:    main D:/github/elliptical.bifaces.1
 Remote:   main @ origin (https://github.com/seldenlab/elliptical.bifaces.1)
-Head:     [bedef06] 2023-02-01: &lt;edit ms&gt;</code></pre>
+Head:     [19ba413] 2023-02-02: &lt;edit index&gt;</code></pre>
 </div>
 </div>
 

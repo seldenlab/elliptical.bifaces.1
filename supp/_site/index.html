@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Robert Z. Selden, Jr.">
-<meta name="dcterms.date" content="2023-02-02">
+<meta name="dcterms.date" content="2023-02-07">
 <meta name="description" content="Supplementary Materials">
 
 <title>Does elliptical biface morphology differ as a function of raw material color?</title>
@@ -254,7 +254,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 2, 2023</p>
+      <p class="date">February 7, 2023</p>
     </div>
   </div>
   
@@ -311,7 +311,7 @@ div.csl-indent {
 </section>
 <section id="color" class="level2">
 <h2 class="anchored" data-anchor-id="color">Color</h2>
-<p>Both sides of the 13 elliptical bifaces from 41AN13 were scanned at 1200 dpi using an HP ScanJet G4050. Images were subsequently transferred to a transparent background in Photoshop, where all labels were deleted in preparation for analysis using the <code>colordistance</code> package in R <span class="citation" data-cites="R RN11200">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN11200" role="doc-biblioref">Weller and Westneat 2019</a>)</span>. A histogram binning method was used to group similar colors, and pairwise distances between histograms were computed using earth mover’s distance, yielding three distinct raw material color groups <span class="citation" data-cites="RN11201">(<a href="#ref-RN11201" role="doc-biblioref">Rubner and Tomasi 2001</a>)</span>. Since one cluster included only a single biface (81), it was dropped from the analysis.</p>
+<p>Both sides of the 13 elliptical bifaces from 41AN13 were scanned at 1200 dpi using an HP ScanJet G4050. Images were subsequently transferred to a transparent background in Photoshop, and all labels and ink were deleted in preparation for analysis using the <code>colordistance</code> package in R <span class="citation" data-cites="R RN11200">(<a href="#ref-R" role="doc-biblioref">R Core Development Team, 2023</a>; <a href="#ref-RN11200" role="doc-biblioref">Weller and Westneat 2019</a>)</span>. A histogram binning method was used to group similar colors, and pairwise distances between histograms were computed using earth mover’s distance, yielding three distinct raw material color groups <span class="citation" data-cites="RN11201">(<a href="#ref-RN11201" role="doc-biblioref">Rubner and Tomasi 2001</a>)</span>. Since one cluster included only a single biface (81), it was dropped from the analysis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/fig2-2-01.jpg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -323,7 +323,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>The elliptical bifaces were run a second time, then coded as ColorGroup A and ColorGroup B. Images of the bifaces are not included here due to the fact that they originated from Caddo burial contexts. To test whether the bifaces differ in color, the color distance matrix was exported, joined with the qualitative data, then analyzed using a permutational multivariate analysis of variance (perMANOVA) in the <code>vegan</code> package, where the color groups were found to differ significantly (permutations = 10,000; Rsq = 0.54754; Pr(&gt;F) = 0.0011). A non-metric multidimensional scaling plot (NMDS) was used to illustrate the color ranges for elliptical bifaces from ColorGroup A and ColorGroup B. The 12 whole/complete elliptical bifaces were subsequently used in an analysis of biface morphology between raw material color groups.</p>
+<p>The elliptical bifaces were coded as ColorGroup A and ColorGroup B. To test whether the bifaces differ in color, the color distance matrix was exported, joined with the qualitative data, then analyzed using a permutational multivariate analysis of variance (perMANOVA) in the <code>vegan</code> package, where the color groups were found to differ significantly (<em>permutations = 10,000; Rsq = 0.54754; <strong>Pr(&gt;F) = 0.0011</strong></em>). A non-metric multidimensional scaling plot (NMDS) was used to illustrate the color ranges for elliptical bifaces from ColorGroup A (more gray) and ColorGroup B (more brown). The same elliptical bifaces were subsequently used in a geometric morphometric analysis to assess whether the morphology of elliptical bifaces differs between raw material color groups.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/nmds-elliptical.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -372,12 +372,13 @@ div.csl-indent {
 </section>
 <section id="procrustes-anova" class="level3">
 <h3 class="anchored" data-anchor-id="procrustes-anova">Procrustes ANOVA</h3>
-<p>To assess whether shape and size differed by <code>ColorGroup</code>, Procrustes ANOVAs <span class="citation" data-cites="RN1749">(<a href="#ref-RN1749" role="doc-biblioref">Goodall 1991</a>)</span> were run that enlist effect-sizes (zscores) computed as standard deviates of the generated sampling distributions <span class="citation" data-cites="RN1756">(<a href="#ref-RN1756" role="doc-biblioref">Collyer, Sekora, and Adams 2015</a>)</span>. A residual randomization permutation procedure (RRPP; n = 10,000 permutations) was used for all Procrustes ANOVAs <span class="citation" data-cites="RN1655 RN11775">(<a href="#ref-RN1655" role="doc-biblioref">Adams and Collyer 2015</a>; <a href="#ref-RN11775" role="doc-biblioref">Collyer and Adams 2018</a>)</span>, which has higher statistical power and a greater ability to identify patterns in the data should they be present <span class="citation" data-cites="RN1719">(<a href="#ref-RN1719" role="doc-biblioref">Anderson and Ter Braak 2003</a>)</span>.</p>
+<p>To assess whether shape and size differed by <code>ColorGroup</code>, Procrustes ANOVAs <span class="citation" data-cites="RN1749">(<a href="#ref-RN1749" role="doc-biblioref">Goodall 1991</a>)</span> were run that enlist effect-sizes (zscores) computed as standard deviates of the generated sampling distributions <span class="citation" data-cites="RN1756">(<a href="#ref-RN1756" role="doc-biblioref">Collyer, Sekora, and Adams 2015</a>)</span>. A residual randomization permutation procedure (RRPP; n = 10,000 permutations) was used for all Procrustes ANOVAs <span class="citation" data-cites="RN1655 RN11775">(<a href="#ref-RN1655" role="doc-biblioref">Adams and Collyer 2015</a>; <a href="#ref-RN11775" role="doc-biblioref">Collyer and Adams 2018</a>)</span>, which has higher statistical power and a greater ability to identify patterns in the data should they be present <span class="citation" data-cites="RN1719">(<a href="#ref-RN1719" role="doc-biblioref">Anderson and Ter Braak 2003</a>)</span>. Results demonstrate that elliptical bifaces differ significantly in shape (<em>RRPP = 10,000; Rsq = 0.31811; <strong>Pr(&gt;F) = 0.0473</strong></em>), but not size (<em>RRPP = 10,000; Rsq = 0.00831; <strong>Pr(&gt;F) = 0.7793</strong></em>) by raw material color group.</p>
 </section>
 </section>
 <section id="summary-of-findings" class="level2">
 <h2 class="anchored" data-anchor-id="summary-of-findings">Summary of Findings</h2>
-<p>Even if raw material color groups are not found to differ in terms of geochemistry, results clearly demonstrate that two discrete elliptical biface shapes articulate with two distinct raw material color groups, indicating a previously unreported Caddo preference related to local lithic technology. With regard to function, elliptical bifaces may have occupied a ceremonial role in the Serpent/Snake Dance <span class="citation" data-cites="RN11208">(<a href="#ref-RN11208" role="doc-biblioref">Howard 1955</a>)</span>, in which symbolic implements were heralded to convey elements of the lower world <span class="citation" data-cites="RN5913">(<a href="#ref-RN5913" role="doc-biblioref">Gadus 2013</a>)</span>. Similar bifaces are depicted in a shell cup recovered from the Craig Mound at Spiro <span class="citation" data-cites="RN2447">(<a href="#ref-RN2447" role="doc-biblioref">Phillips and Brown 1978-1984</a>)</span>, where both Hero Twins can be seen grasping an elliptical biface. Given the extant differences that occur in elliptical biface shape and color, these implements may have been meant to depict one or more specific species. The amount of retouch along the edges suggests that the bifaces experienced regular use, raising the question of whether the associated colors and shapes may have articulated with specific tools employed to dispatch or prepare offerings for a particular species or group of snakes. Experimental use-wear studies may aid in clarifying whether or not elliptical bifaces were employed for such tasks.</p>
+<p>Even if raw material color groups are not found to differ in terms of geochemistry, results clearly demonstrate that two discrete elliptical biface shapes articulate with two distinct raw material color groups, indicating a previously unreported Caddo preference related to local lithic technology. All of the elliptical bifaces are thought to have been produced with Edwards chert; however, color (more/less gray/brown) could have been selected for in advance of manufacture, with bifaces of different colors crafted to meet with specific cultural constraints related to shape.</p>
+<p>With regard to function, elliptical bifaces may have occupied a ceremonial role in the Serpent/Snake Dance <span class="citation" data-cites="RN11208">(<a href="#ref-RN11208" role="doc-biblioref">Howard 1955</a>)</span>, in which symbolic implements were heralded to convey elements of the lower world <span class="citation" data-cites="RN5913">(<a href="#ref-RN5913" role="doc-biblioref">Gadus 2013</a>)</span>. Similar bifaces are depicted in a shell cup recovered from the Craig Mound at Spiro <span class="citation" data-cites="RN2447">(<a href="#ref-RN2447" role="doc-biblioref">Phillips and Brown 1978-1984</a>)</span>, where both Hero Twins can be seen grasping an elliptical biface. Given the extant differences that occur in elliptical biface shape and color, these implements may have been meant to depict one or more specific species. The amount of retouch along the edges suggests that the bifaces experienced regular use, raising the question of whether the associated colors and shapes may have articulated with specific tools employed to dispatch or prepare offerings for a particular species or group of snakes. Experimental use-wear studies may aid in clarifying whether or not elliptical bifaces were employed for such tasks.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'./img/spiro.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -406,7 +407,7 @@ div.csl-indent {
 </section>
 <section id="colophon" class="level1 unnumbered">
 <h1 class="unnumbered">Colophon</h1>
-<p>This version of the analysis was generated on 2023-02-02 13:59:57 using the following computational environment and dependencies:</p>
+<p>This version of the analysis was generated on 2023-02-07 08:22:38 using the following computational environment and dependencies:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># what R packages and versions were used?</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"devtools"</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()) devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -421,7 +422,7 @@ div.csl-indent {
  collate  English_United States.utf8
  ctype    English_United States.utf8
  tz       America/Chicago
- date     2023-02-02
+ date     2023-02-07
  pandoc   2.19.2 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
@@ -488,7 +489,7 @@ div.csl-indent {
 <div class="cell-output cell-output-stdout">
 <pre><code>Local:    main D:/github/elliptical.bifaces.1
 Remote:   main @ origin (https://github.com/seldenlab/elliptical.bifaces.1)
-Head:     [19ba413] 2023-02-02: &lt;edit index&gt;</code></pre>
+Head:     [58e6257] 2023-02-02: &lt;edit supp&gt;</code></pre>
 </div>
 </div>
 

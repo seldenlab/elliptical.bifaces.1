@@ -74,7 +74,7 @@ battleship.plot(burial_pct[ord2, ],
 
 # Recalibrate legacy date
 
-```{r legacy}
+```{r legacy, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message=FALSE}
 # check for update
 library(oxcAAR)
 library(rcarbon)

@@ -25,7 +25,7 @@ write.csv(cdm, file = "color_distance_matrix.csv")
 
 ## Permutational MANOVA
 
-```{r manova, out.width = "100%", dpi = 300, echo=TRUE}
+```{r manova, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message=FALSE}
 # perMANOVA
 # import color distance matrix
 c.data <- read.csv("color_distance_matrix.csv",
@@ -53,9 +53,9 @@ el.biface.colour <- adonis2(elliptical.dist ~ ColorGroup,
 el.biface.colour
 ```
 
-## Visualization
+## NMDS ordination
 
-```{r nmds, out.width = "100%", dpi = 300, echo=TRUE}
+```{r nmds, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message=FALSE}
 # define add_image function
 add_image <- function(obj,
                       x = NULL,

@@ -15,7 +15,12 @@ library(ape)
 images <- colordistance::getImagePaths('images')
 
 # generate color distance matrix
-cdm <- imageClusterPipeline(images)
+cdm <- imageClusterPipeline(images,
+                            lower = FALSE,
+                            upper = FALSE,
+                            hist.bins = 3,
+                            plot.bins = TRUE,
+                            pausing = FALSE)
 
 # replace NAs with 0
 cdm[is.na(cdm)] = 0
@@ -30,12 +35,21 @@ write.csv(cdm, file = "color_distance_matrix.csv")
 # import color distance matrix
 c.data <- read.csv("color_distance_matrix.csv",
                    header = TRUE,
-                   as.is=TRUE)
+                   as.is = TRUE)
+
+# omit 81
+c.data <- c.data %>% 
+  select('X','X56','X63','X66','X70','X72','X74','X75','X76','X77','X78','X79','X80') %>% 
+  filter(X %in% c('56','63','66','70','72','74','75','76','77','78','79','80'))
 
 # import qual data
 e.data <- read.csv("qdata.csv",
                    header = TRUE,
-                   as.is=TRUE)
+                   as.is = TRUE)
+
+# omit 81
+e.data <- e.data %>% 
+  filter(ColorGroup %in% c('A','B'))
 
 # preliminaries
 colnames(e.data) <- c('X','site','ColorGroup') # rename columns prior to join
@@ -51,67 +65,4 @@ el.biface.colour <- adonis2(elliptical.dist ~ ColorGroup,
 
 ## does color differ by ColorGroup?
 el.biface.colour
-```
-
-## NMDS ordination
-
-```{r nmds, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message=FALSE}
-# define add_image function
-add_image <- function(obj,
-                      x = NULL,
-                      y = NULL,
-                      width = NULL,
-                      interpolate = TRUE,
-                      angle = 0) {
-  
-  # get current plotting window parameters:
-  usr <- graphics::par()$usr
-  pin <- graphics::par()$pin
-  
-  # image dimensions and scaling factor:
-  imdim <- dim(obj)
-  sf <- imdim[1] / imdim[2]
-  
-  # set the width of the image (relative to x-axis)
-  w <- width / (usr[2] - usr[1]) * pin[1]
-  h <- w * sf
-  hu <- h / pin[2] * (usr[4] - usr[3])
-  
-  # plot the image
-  graphics::rasterImage(image = obj,
-                        xleft = x - (width / 2), xright = x + (width / 2),
-                        ybottom = y - (hu / 2), ytop = y + (hu/2),
-                        interpolate = interpolate,
-                        angle = angle)
-}
-
-nmds_scores <- scores(metaMDS(comm = as.dist(cdm)))
-
-# set plot parameters
-plot(nmds_scores,
-     xlim = c(-0.07, 0.12),
-     ylim = c(-0.04, 0.04),
-     cex = 0.001
-)
-
-#Create convex hulls that highlight point clusters based on grouping dataframe
-ordihull(
-  nmds_scores,
-  e.data$ColorGroup,
-  draw = c("polygon"),
-  col = NULL,
-  border = c("#798E87","#C27D38")
-)
-
-# add images
-for (i in 1:length(images)) {
-       
-    # read image:
-    img <- png::readPNG(images[i]) 
-    # add image:
-    add_image(img,
-              x = nmds_scores[i, 1],
-              y = nmds_scores[i, 2],
-              width = 0.008)
-}
 ```

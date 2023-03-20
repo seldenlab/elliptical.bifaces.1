@@ -85,14 +85,11 @@ an21 <- data.frame(bp = c(300),
                    std = c(40),
                    names = c("41AN21")
 )
-an21.cal<-oxcalCalibrate(an21$bp,
-                         an21$std,
-                         an21$names)
+an21.cal <- oxcalCalibrate(an21$bp,
+                           an21$std,
+                           an21$names)
 an21.cal
 
 ## plot
 plot(an21.cal)
-
-## curveplot
-calcurve_plot(an21.cal)
 ```

@@ -169,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><img src=".\img/slab.png" class="img-fluid"></p>
+<p><img src="./img/slab.png" class="img-fluid"></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
@@ -353,48 +353,48 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>nmds_scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(<span class="fu">metaMDS</span>(<span class="at">comm =</span> <span class="fu">as.dist</span>(c.data2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run 0 stress 0.002359042 
-Run 1 stress 0.002359033 
+<pre><code>Run 0 stress 0.002359028 
+Run 1 stress 0.002359044 
+... Procrustes: rmse 7.020159e-05  max resid 0.0001716195 
+... Similar to previous best
+Run 2 stress 0.002359018 
 ... New best solution
-... Procrustes: rmse 7.308043e-05  max resid 0.0001787344 
+... Procrustes: rmse 4.75235e-05  max resid 0.0001162117 
 ... Similar to previous best
-Run 2 stress 0.002359044 
-... Procrustes: rmse 7.200579e-06  max resid 1.841054e-05 
+Run 3 stress 0.006277841 
+Run 4 stress 0.03014256 
+Run 5 stress 0.002829682 
+... Procrustes: rmse 0.007454959  max resid 0.01661708 
+Run 6 stress 0.002359464 
+... Procrustes: rmse 0.0001704564  max resid 0.0004164181 
 ... Similar to previous best
-Run 3 stress 0.006592334 
-Run 4 stress 0.03013175 
-Run 5 stress 0.002990682 
-Run 6 stress 0.002360174 
-... Procrustes: rmse 0.000276774  max resid 0.0006767623 
+Run 7 stress 0.002359044 
+... Procrustes: rmse 5.930993e-05  max resid 0.0001400135 
 ... Similar to previous best
-Run 7 stress 0.002359042 
-... Procrustes: rmse 7.30705e-05  max resid 0.0001806727 
+Run 8 stress 0.004153648 
+Run 9 stress 0.03018236 
+Run 10 stress 0.002941443 
+Run 11 stress 0.00235904 
+... Procrustes: rmse 1.977463e-05  max resid 4.822383e-05 
 ... Similar to previous best
-Run 8 stress 0.004627369 
-Run 9 stress 0.03086111 
-Run 10 stress 0.002747674 
-... Procrustes: rmse 0.00645988  max resid 0.01427683 
-Run 11 stress 0.002359039 
-... Procrustes: rmse 4.212678e-06  max resid 1.027527e-05 
+Run 12 stress 0.03008214 
+Run 13 stress 0.03008317 
+Run 14 stress 0.006722885 
+Run 15 stress 0.002360254 
+... Procrustes: rmse 0.0002319916  max resid 0.0005457282 
 ... Similar to previous best
-Run 12 stress 0.03008173 
-Run 13 stress 0.03008665 
-Run 14 stress 0.006607301 
-Run 15 stress 0.002363562 
-... Procrustes: rmse 0.0004458354  max resid 0.00102643 
-... Similar to previous best
-Run 16 stress 0.002359063 
-... Procrustes: rmse 8.475637e-05  max resid 0.0002068861 
+Run 16 stress 0.002359039 
+... Procrustes: rmse 5.604088e-05  max resid 0.0001367693 
 ... Similar to previous best
 Run 17 stress 0.3359239 
-Run 18 stress 0.002366426 
-... Procrustes: rmse 0.0005089264  max resid 0.001186586 
+Run 18 stress 0.002362819 
+... Procrustes: rmse 0.0004066477  max resid 0.0009619379 
 ... Similar to previous best
-Run 19 stress 0.002359036 
-... Procrustes: rmse 6.896409e-05  max resid 0.0001716627 
+Run 19 stress 0.002359113 
+... Procrustes: rmse 9.0482e-05  max resid 0.0002154045 
 ... Similar to previous best
-Run 20 stress 0.03011572 
-*** Best solution repeated 9 times</code></pre>
+Run 20 stress 0.03011262 
+*** Best solution repeated 8 times</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot parameters</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nmds_scores,</span>

@@ -20,7 +20,7 @@ library(ggplot2)
 shapes <- readShapes("shapes")
 shapesGM <- readland.shapes(shapes, nCurvePts = c(15, 20, 35))
 
-# read qualitative data
+# read categorical data
 qdata <- read.csv("qdata2.csv", 
                   header = TRUE, 
                   row.names = 1)

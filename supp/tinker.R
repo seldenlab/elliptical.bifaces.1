@@ -1,4 +1,6 @@
 # Load e.biface image
+library(here)
+library(colordistance)
 e.biface <- loadImage("images/78.png", 
                     CIELab = FALSE,
                     lower = FALSE,
@@ -10,11 +12,6 @@ plotPixels(e.biface,
            n = 10000,
            main = "Pixels (RGB Color Space)")
 
-# plot clusters in 3D space
-scatter3dclusters(e.biface.hist, scaling=22, opacity=0.99, 
-                  plus=0.03, y.margin.add=1,
-                  type="h", lwd=1.5, angle=50, main="Clusters (RGB)")
-
 # get histogram clusters
 e.biface.hist <- getImageHist(e.biface,
                             bins = 3,
@@ -24,3 +21,13 @@ e.biface.hist <- getImageHist(e.biface,
                             hsf = FALSE,
                             title = "Histogram color clusters",
                             ylab="Proportion of image")
+
+# plot clusters in 3D space
+scatter3dclusters(e.biface.hist, 
+                  scaling = 20, 
+                  opacity = 0.99, 
+                  y.margin.add = 1,
+                  type = "h", 
+                  angle = 50, 
+                  main = "Clusters (RGB)")
+

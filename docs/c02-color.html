@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -175,8 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#permutational-manova" id="toc-permutational-manova" class="nav-link active" data-scroll-target="#permutational-manova">Permutational MANOVA</a></li>
-  <li><a href="#nmds-ordination" id="toc-nmds-ordination" class="nav-link" data-scroll-target="#nmds-ordination">NMDS Ordination</a></li>
+  <li><a href="#nmds-ordination" id="toc-nmds-ordination" class="nav-link active" data-scroll-target="#nmds-ordination">NMDS Ordination</a></li>
+  <li><a href="#permutational-manova" id="toc-permutational-manova" class="nav-link" data-scroll-target="#permutational-manova">Permutational MANOVA</a></li>
   </ul>
 </nav>
     </div>
@@ -257,43 +257,164 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># export color distance matrix</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(cdm, <span class="at">file =</span> <span class="st">"color_distance_matrix.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="nmds-ordination" class="level2">
+<h2 class="anchored" data-anchor-id="nmds-ordination">NMDS Ordination</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import color distance matrix</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>c.dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"color_distance_matrix.csv"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">as.is =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># omit 81</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>c.data <span class="ot">&lt;-</span> c.dat <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(X<span class="sc">:</span>X80)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">56</span><span class="sc">:</span><span class="dv">80</span>))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># import qual data</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>e.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"qdata.csv"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">as.is =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># omit 81</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>e.data <span class="ot">&lt;-</span> e.data <span class="sc">%&gt;%</span> </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ColorGroup <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'A'</span>,<span class="st">'B'</span>))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># define add_image function</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>add_image <span class="ot">&lt;-</span> <span class="cf">function</span>(obj,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                      <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                      <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                      <span class="at">width =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                      <span class="at">interpolate =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                      <span class="at">angle =</span> <span class="dv">0</span>) {</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get current plotting window parameters:</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  usr <span class="ot">&lt;-</span> graphics<span class="sc">::</span><span class="fu">par</span>()<span class="sc">$</span>usr</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  pin <span class="ot">&lt;-</span> graphics<span class="sc">::</span><span class="fu">par</span>()<span class="sc">$</span>pin</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># image dimensions and scaling factor:</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  imdim <span class="ot">&lt;-</span> <span class="fu">dim</span>(obj)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  sf <span class="ot">&lt;-</span> imdim[<span class="dv">1</span>] <span class="sc">/</span> imdim[<span class="dv">2</span>]</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set the width of the image (relative to x-axis)</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> width <span class="sc">/</span> (usr[<span class="dv">2</span>] <span class="sc">-</span> usr[<span class="dv">1</span>]) <span class="sc">*</span> pin[<span class="dv">1</span>]</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  h <span class="ot">&lt;-</span> w <span class="sc">*</span> sf</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  hu <span class="ot">&lt;-</span> h <span class="sc">/</span> pin[<span class="dv">2</span>] <span class="sc">*</span> (usr[<span class="dv">4</span>] <span class="sc">-</span> usr[<span class="dv">3</span>])</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the image</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  graphics<span class="sc">::</span><span class="fu">rasterImage</span>(<span class="at">image =</span> obj,</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>                        <span class="at">xleft =</span> x <span class="sc">-</span> (width <span class="sc">/</span> <span class="dv">2</span>), <span class="at">xright =</span> x <span class="sc">+</span> (width <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ybottom =</span> y <span class="sc">-</span> (hu <span class="sc">/</span> <span class="dv">2</span>), <span class="at">ytop =</span> y <span class="sc">+</span> (hu<span class="sc">/</span><span class="dv">2</span>),</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>                        <span class="at">interpolate =</span> interpolate,</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                        <span class="at">angle =</span> angle)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co"># get image paths (sans img ID81)</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>images <span class="ot">&lt;-</span> colordistance<span class="sc">::</span><span class="fu">getImagePaths</span>(<span class="st">'images2'</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co"># cdm sans ID81</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>c.data2 <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(c.dat <span class="sc">%&gt;%</span> </span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(X <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">56</span><span class="sc">:</span><span class="dv">80</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">c</span>(X56<span class="sc">:</span>X80))</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>nmds_scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(<span class="fu">metaMDS</span>(<span class="at">comm =</span> <span class="fu">as.dist</span>(c.data2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Run 0 stress 0.002359028 
+Run 1 stress 0.006229054 
+Run 2 stress 0.003133689 
+Run 3 stress 0.00309175 
+Run 4 stress 0.03086781 
+Run 5 stress 0.002359039 
+... Procrustes: rmse 8.285068e-06  max resid 2.015843e-05 
+... Similar to previous best
+Run 6 stress 0.004341207 
+Run 7 stress 0.002444844 
+... Procrustes: rmse 0.002267751  max resid 0.005079603 
+... Similar to previous best
+Run 8 stress 0.002359046 
+... Procrustes: rmse 7.091377e-05  max resid 0.0001761006 
+... Similar to previous best
+Run 9 stress 0.002359177 
+... Procrustes: rmse 6.264182e-05  max resid 0.0001528138 
+... Similar to previous best
+Run 10 stress 0.002359045 
+... Procrustes: rmse 1.269976e-05  max resid 3.098948e-05 
+... Similar to previous best
+Run 11 stress 0.002650302 
+... Procrustes: rmse 0.005405234  max resid 0.01187516 
+Run 12 stress 0.04472884 
+Run 13 stress 0.002359048 
+... Procrustes: rmse 7.217105e-05  max resid 0.0001782893 
+... Similar to previous best
+Run 14 stress 0.002542106 
+... Procrustes: rmse 0.003824536  max resid 0.008379883 
+... Similar to previous best
+Run 15 stress 0.00235905 
+... Procrustes: rmse 6.508688e-06  max resid 1.458671e-05 
+... Similar to previous best
+Run 16 stress 0.002359094 
+... Procrustes: rmse 3.552152e-05  max resid 8.682797e-05 
+... Similar to previous best
+Run 17 stress 0.03151557 
+Run 18 stress 0.002891423 
+Run 19 stress 0.00235917 
+... Procrustes: rmse 6.080764e-05  max resid 0.0001485058 
+... Similar to previous best
+Run 20 stress 0.002359057 
+... Procrustes: rmse 7.735913e-05  max resid 0.0001901417 
+... Similar to previous best
+*** Best solution repeated 11 times</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot parameters</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nmds_scores,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.07</span>, <span class="fl">0.12</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.06</span>, <span class="fl">0.06</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="dv">1</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Create convex hulls that highlight point clusters based on grouping dataframe</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ordihull</span>(</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  nmds_scores,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  e.data<span class="sc">$</span>ColorGroup,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">draw =</span> <span class="fu">c</span>(<span class="st">"polygon"</span>),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">border =</span> <span class="fu">c</span>(<span class="st">"#798E87"</span>,<span class="st">"#C27D38"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># add images</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(images)) {</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># read image:</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    img <span class="ot">&lt;-</span> png<span class="sc">::</span><span class="fu">readPNG</span>(images[i]) </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add image:</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_image</span>(img,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">x =</span> nmds_scores[i, <span class="dv">1</span>],</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">y =</span> nmds_scores[i, <span class="dv">2</span>],</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="fl">0.008</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="c02-color_files/figure-html/nmdsord-1.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</section>
 <section id="permutational-manova" class="level2">
 <h2 class="anchored" data-anchor-id="permutational-manova">Permutational MANOVA</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># perMANOVA</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import color distance matrix</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>c.dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"color_distance_matrix.csv"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">as.is =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># omit 81</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>c.data <span class="ot">&lt;-</span> c.dat <span class="sc">%&gt;%</span> </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(X<span class="sc">:</span>X80)) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">56</span><span class="sc">:</span><span class="dv">80</span>))</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># import qual data</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>e.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"qdata.csv"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">as.is =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># omit 81</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>e.data <span class="ot">&lt;-</span> e.data <span class="sc">%&gt;%</span> </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ColorGroup <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'A'</span>,<span class="st">'B'</span>))</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># preliminaries</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(e.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'X'</span>,<span class="st">'site'</span>,<span class="st">'ColorGroup'</span>) <span class="co"># rename columns prior to join</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>elliptical <span class="ot">&lt;-</span> <span class="fu">left_join</span>(e.data, c.data, <span class="at">by =</span> <span class="st">"X"</span>) <span class="co"># left join by specimen number</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>elliptical.dist <span class="ot">&lt;-</span> elliptical[,<span class="dv">4</span><span class="sc">:</span><span class="dv">15</span>] <span class="co"># distance matrix</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>) <span class="co"># make results reproducible</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co"># model: biface color as a function of color group</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>el.biface.colour <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(elliptical.dist <span class="sc">~</span> ColorGroup,</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> elliptical,</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                            <span class="at">permutations =</span> <span class="dv">10000</span>,</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                            <span class="at">method =</span> <span class="st">'bray'</span>)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="do">## does color differ by ColorGroup?</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>el.biface.colour</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># perMANOVA</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># preliminaries</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(e.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'X'</span>,<span class="st">'site'</span>,<span class="st">'ColorGroup'</span>) <span class="co"># rename columns prior to join</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>elliptical <span class="ot">&lt;-</span> <span class="fu">left_join</span>(e.data, c.data, <span class="at">by =</span> <span class="st">"X"</span>) <span class="co"># left join by specimen number</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>elliptical.dist <span class="ot">&lt;-</span> elliptical[,<span class="dv">4</span><span class="sc">:</span><span class="dv">15</span>] <span class="co"># distance matrix</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>) <span class="co"># make results reproducible</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># model: biface color as a function of color group</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>el.biface.colour <span class="ot">&lt;-</span> <span class="fu">adonis2</span>(elliptical.dist <span class="sc">~</span> ColorGroup,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> elliptical,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">permutations =</span> <span class="dv">10000</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">method =</span> <span class="st">'bray'</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="do">## does color differ by ColorGroup?</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>el.biface.colour</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
@@ -307,124 +428,6 @@ Residual   10 0.014341 0.45246
 Total      11 0.031696 1.00000                 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-</section>
-<section id="nmds-ordination" class="level2">
-<h2 class="anchored" data-anchor-id="nmds-ordination">NMDS Ordination</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define add_image function</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>add_image <span class="ot">&lt;-</span> <span class="cf">function</span>(obj,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">width =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">interpolate =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">angle =</span> <span class="dv">0</span>) {</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get current plotting window parameters:</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  usr <span class="ot">&lt;-</span> graphics<span class="sc">::</span><span class="fu">par</span>()<span class="sc">$</span>usr</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  pin <span class="ot">&lt;-</span> graphics<span class="sc">::</span><span class="fu">par</span>()<span class="sc">$</span>pin</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># image dimensions and scaling factor:</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  imdim <span class="ot">&lt;-</span> <span class="fu">dim</span>(obj)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  sf <span class="ot">&lt;-</span> imdim[<span class="dv">1</span>] <span class="sc">/</span> imdim[<span class="dv">2</span>]</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set the width of the image (relative to x-axis)</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  w <span class="ot">&lt;-</span> width <span class="sc">/</span> (usr[<span class="dv">2</span>] <span class="sc">-</span> usr[<span class="dv">1</span>]) <span class="sc">*</span> pin[<span class="dv">1</span>]</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  h <span class="ot">&lt;-</span> w <span class="sc">*</span> sf</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  hu <span class="ot">&lt;-</span> h <span class="sc">/</span> pin[<span class="dv">2</span>] <span class="sc">*</span> (usr[<span class="dv">4</span>] <span class="sc">-</span> usr[<span class="dv">3</span>])</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the image</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  graphics<span class="sc">::</span><span class="fu">rasterImage</span>(<span class="at">image =</span> obj,</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>                        <span class="at">xleft =</span> x <span class="sc">-</span> (width <span class="sc">/</span> <span class="dv">2</span>), <span class="at">xright =</span> x <span class="sc">+</span> (width <span class="sc">/</span> <span class="dv">2</span>),</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>                        <span class="at">ybottom =</span> y <span class="sc">-</span> (hu <span class="sc">/</span> <span class="dv">2</span>), <span class="at">ytop =</span> y <span class="sc">+</span> (hu<span class="sc">/</span><span class="dv">2</span>),</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>                        <span class="at">interpolate =</span> interpolate,</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>                        <span class="at">angle =</span> angle)</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co"># get image paths (sans img ID81)</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>images <span class="ot">&lt;-</span> colordistance<span class="sc">::</span><span class="fu">getImagePaths</span>(<span class="st">'images2'</span>)</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># cdm sans ID81</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>c.data2 <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(c.dat <span class="sc">%&gt;%</span> </span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(X <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">56</span><span class="sc">:</span><span class="dv">80</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">c</span>(X56<span class="sc">:</span>X80))</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>nmds_scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(<span class="fu">metaMDS</span>(<span class="at">comm =</span> <span class="fu">as.dist</span>(c.data2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Run 0 stress 0.002359028 
-Run 1 stress 0.002359044 
-... Procrustes: rmse 7.020159e-05  max resid 0.0001716195 
-... Similar to previous best
-Run 2 stress 0.002359018 
-... New best solution
-... Procrustes: rmse 4.75235e-05  max resid 0.0001162117 
-... Similar to previous best
-Run 3 stress 0.006277841 
-Run 4 stress 0.03014256 
-Run 5 stress 0.002829682 
-... Procrustes: rmse 0.007454959  max resid 0.01661708 
-Run 6 stress 0.002359464 
-... Procrustes: rmse 0.0001704564  max resid 0.0004164181 
-... Similar to previous best
-Run 7 stress 0.002359044 
-... Procrustes: rmse 5.930993e-05  max resid 0.0001400135 
-... Similar to previous best
-Run 8 stress 0.004153648 
-Run 9 stress 0.03018236 
-Run 10 stress 0.002941443 
-Run 11 stress 0.00235904 
-... Procrustes: rmse 1.977463e-05  max resid 4.822383e-05 
-... Similar to previous best
-Run 12 stress 0.03008214 
-Run 13 stress 0.03008317 
-Run 14 stress 0.006722885 
-Run 15 stress 0.002360254 
-... Procrustes: rmse 0.0002319916  max resid 0.0005457282 
-... Similar to previous best
-Run 16 stress 0.002359039 
-... Procrustes: rmse 5.604088e-05  max resid 0.0001367693 
-... Similar to previous best
-Run 17 stress 0.3359239 
-Run 18 stress 0.002362819 
-... Procrustes: rmse 0.0004066477  max resid 0.0009619379 
-... Similar to previous best
-Run 19 stress 0.002359113 
-... Procrustes: rmse 9.0482e-05  max resid 0.0002154045 
-... Similar to previous best
-Run 20 stress 0.03011262 
-*** Best solution repeated 8 times</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot parameters</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nmds_scores,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.07</span>, <span class="fl">0.12</span>),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.04</span>, <span class="fl">0.04</span>),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.001</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Create convex hulls that highlight point clusters based on grouping dataframe</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ordihull</span>(</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  nmds_scores,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  e.data<span class="sc">$</span>ColorGroup,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">draw =</span> <span class="fu">c</span>(<span class="st">"polygon"</span>),</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="cn">NULL</span>,</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">border =</span> <span class="fu">c</span>(<span class="st">"#798E87"</span>,<span class="st">"#C27D38"</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># add images</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(images)) {</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># read image:</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    img <span class="ot">&lt;-</span> png<span class="sc">::</span><span class="fu">readPNG</span>(images[i]) </span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add image:</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_image</span>(img,</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">x =</span> nmds_scores[i, <span class="dv">1</span>],</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">y =</span> nmds_scores[i, <span class="dv">2</span>],</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">width =</span> <span class="fl">0.008</span>)</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="c02-color_files/figure-html/nmdsord-1.png" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 

@@ -27,10 +27,9 @@ cdm[is.na(cdm)] = 0
 write.csv(cdm, file = "color_distance_matrix.csv")
 ```
 
-## Permutational MANOVA
+## NMDS Ordination
 
-```{r manova, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message=FALSE}
-# perMANOVA
+```{r nmdsord, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message=FALSE}
 # import color distance matrix
 c.dat <- read.csv("color_distance_matrix.csv",
                    header = TRUE,
@@ -50,25 +49,6 @@ e.data <- read.csv("qdata.csv",
 e.data <- e.data %>% 
   filter(ColorGroup %in% c('A','B'))
 
-# preliminaries
-colnames(e.data) <- c('X','site','ColorGroup') # rename columns prior to join
-elliptical <- left_join(e.data, c.data, by = "X") # left join by specimen number
-elliptical.dist <- elliptical[,4:15] # distance matrix
-set.seed(10) # make results reproducible
-
-# model: biface color as a function of color group
-el.biface.colour <- adonis2(elliptical.dist ~ ColorGroup,
-                            data = elliptical,
-                            permutations = 10000,
-                            method = 'bray')
-
-## does color differ by ColorGroup?
-el.biface.colour
-```
-
-## NMDS Ordination
-
-```{r nmdsord, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message=FALSE}
 # define add_image function
 add_image <- function(obj,
                       x = NULL,
@@ -112,8 +92,8 @@ nmds_scores <- scores(metaMDS(comm = as.dist(c.data2)))
 # set plot parameters
 plot(nmds_scores,
      xlim = c(-0.07, 0.12),
-     ylim = c(-0.04, 0.04),
-     cex = 0.001
+     ylim = c(-0.06, 0.06),
+     cex = 1
 )
 
 #Create convex hulls that highlight point clusters based on grouping dataframe
@@ -136,4 +116,24 @@ for (i in 1:length(images)) {
               y = nmds_scores[i, 2],
               width = 0.008)
 }
+```
+
+## Permutational MANOVA
+
+```{r manova, out.width = "100%", dpi = 300, echo=TRUE, warning=FALSE, message=FALSE}
+# perMANOVA
+# preliminaries
+colnames(e.data) <- c('X','site','ColorGroup') # rename columns prior to join
+elliptical <- left_join(e.data, c.data, by = "X") # left join by specimen number
+elliptical.dist <- elliptical[,4:15] # distance matrix
+set.seed(10) # make results reproducible
+
+# model: biface color as a function of color group
+el.biface.colour <- adonis2(elliptical.dist ~ ColorGroup,
+                            data = elliptical,
+                            permutations = 10000,
+                            method = 'bray')
+
+## does color differ by ColorGroup?
+el.biface.colour
 ```

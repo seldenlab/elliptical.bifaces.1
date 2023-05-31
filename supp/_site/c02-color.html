@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -169,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><img src="./img/slab.png" class="img-fluid"></p>
+<p><img src="./sfasu.png" class="img-fluid"></p>
 </div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
@@ -319,51 +319,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>nmds_scores <span class="ot">&lt;-</span> <span class="fu">scores</span>(<span class="fu">metaMDS</span>(<span class="at">comm =</span> <span class="fu">as.dist</span>(c.data2)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Run 0 stress 0.002359028 
-Run 1 stress 0.006229054 
-Run 2 stress 0.003133689 
-Run 3 stress 0.00309175 
-Run 4 stress 0.03086781 
-Run 5 stress 0.002359039 
-... Procrustes: rmse 8.285068e-06  max resid 2.015843e-05 
+<pre><code>Run 0 stress 0.002359031 
+Run 1 stress 0.002359087 
+... Procrustes: rmse 9.379601e-05  max resid 0.0002291807 
 ... Similar to previous best
-Run 6 stress 0.004341207 
-Run 7 stress 0.002444844 
-... Procrustes: rmse 0.002267751  max resid 0.005079603 
+Run 2 stress 0.002359319 
+... Procrustes: rmse 9.610158e-05  max resid 0.0002340066 
 ... Similar to previous best
-Run 8 stress 0.002359046 
-... Procrustes: rmse 7.091377e-05  max resid 0.0001761006 
+Run 3 stress 0.002804939 
+... Procrustes: rmse 0.00718958  max resid 0.01594965 
+Run 4 stress 0.03008185 
+Run 5 stress 0.006223433 
+Run 6 stress 0.002760112 
+... Procrustes: rmse 0.006642845  max resid 0.01468221 
+Run 7 stress 0.002359052 
+... Procrustes: rmse 7.494038e-05  max resid 0.0001833439 
 ... Similar to previous best
-Run 9 stress 0.002359177 
-... Procrustes: rmse 6.264182e-05  max resid 0.0001528138 
+Run 8 stress 0.006182989 
+Run 9 stress 0.006247482 
+Run 10 stress 0.003441129 
+Run 11 stress 0.002359048 
+... Procrustes: rmse 7.519733e-05  max resid 0.0001856113 
 ... Similar to previous best
-Run 10 stress 0.002359045 
-... Procrustes: rmse 1.269976e-05  max resid 3.098948e-05 
+Run 12 stress 0.002372625 
+... Procrustes: rmse 0.0008539385  max resid 0.001926306 
 ... Similar to previous best
-Run 11 stress 0.002650302 
-... Procrustes: rmse 0.005405234  max resid 0.01187516 
-Run 12 stress 0.04472884 
-Run 13 stress 0.002359048 
-... Procrustes: rmse 7.217105e-05  max resid 0.0001782893 
+Run 13 stress 0.03008237 
+Run 14 stress 0.3473073 
+Run 15 stress 0.006149061 
+Run 16 stress 0.004521398 
+Run 17 stress 0.006374702 
+Run 18 stress 0.002359045 
+... Procrustes: rmse 7.334519e-05  max resid 0.0001809859 
 ... Similar to previous best
-Run 14 stress 0.002542106 
-... Procrustes: rmse 0.003824536  max resid 0.008379883 
-... Similar to previous best
-Run 15 stress 0.00235905 
-... Procrustes: rmse 6.508688e-06  max resid 1.458671e-05 
-... Similar to previous best
-Run 16 stress 0.002359094 
-... Procrustes: rmse 3.552152e-05  max resid 8.682797e-05 
-... Similar to previous best
-Run 17 stress 0.03151557 
-Run 18 stress 0.002891423 
-Run 19 stress 0.00235917 
-... Procrustes: rmse 6.080764e-05  max resid 0.0001485058 
-... Similar to previous best
-Run 20 stress 0.002359057 
-... Procrustes: rmse 7.735913e-05  max resid 0.0001901417 
-... Similar to previous best
-*** Best solution repeated 11 times</code></pre>
+Run 19 stress 0.03165429 
+Run 20 stress 0.003066075 
+*** Best solution repeated 6 times</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot parameters</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nmds_scores,</span>
